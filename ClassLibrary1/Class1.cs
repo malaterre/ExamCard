@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-// https://learn.microsoft.com/en-us/dotnet/standard/serialization/how-to-override-encoded-soap-xml-serialization
 namespace ClassLibrary1
 {
     public class Group
@@ -56,4 +59,5 @@ namespace ClassLibrary1
         small,
         large
     }
+
 }
