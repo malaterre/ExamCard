@@ -7,5 +7,9 @@ namespace Philips.PmsMR.Platform.ScannerContext
     {
         public int a;
     }
-
+    [Serializable]
+    public class DockMode
+    {
+        public int a;
+    }
 }

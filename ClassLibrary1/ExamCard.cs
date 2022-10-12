@@ -25,6 +25,9 @@ namespace Philips.PmsMR.ExamCards.ECModel
         public ExamCardsVersion version;
         public int alignOverlap;
         public bool pushToWorkStation;
+        // new version:
+        public object anatomy;
+        public object reviewRequired;
     }
     [Serializable]
     public class ECInstrumentList
