@@ -1,8 +1,9 @@
-﻿using ClassLibrary1;
+﻿using Philips.PmsMR.ExamCards.ECModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Soap;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
@@ -13,164 +14,19 @@ namespace ConsoleApp
     {
         public static void Main()
         {
-            Program test = new Program();
-            test.SerializeOriginal("SoapOriginal.xml");
-            test.SerializeOverride("SoapOverrides.xml");
-            test.DeserializeOriginal("SoapOriginal.xml");
-            test.DeserializeOverride("SoapOverrides.xml");
+            {
+                ExamCard myGroup = new ExamCard();
+                FileStream stmCar = new FileStream("wip.ExamCard", FileMode.Create);
+                SoapFormatter sopCar = new SoapFormatter();
 
-        }
-        public void SerializeOriginal(string filename)
-        {
-            // Creates an instance of the XmlSerializer class.
-            XmlTypeMapping myMapping =(new SoapReflectionImporter().ImportTypeMapping(typeof(Group)));
-            XmlSerializer mySerializer =new XmlSerializer(myMapping);
+                sopCar.Serialize(stmCar, myGroup);
+            }
 
-            // Writing the file requires a TextWriter.
-            TextWriter writer = new StreamWriter(filename);
-
-            // Creates an instance of the class that will be serialized.
-            Group myGroup = new Group();
-
-            // Sets the object properties.
-            myGroup.GroupName = ".NET";
-
-            Byte[] hexByte = new Byte[2]{Convert.ToByte(100),Convert.ToByte(50)};
-            myGroup.GroupNumber = hexByte;
-
-            DateTime myDate = new DateTime(2002, 5, 2);
-            myGroup.Today = myDate;
-
-            myGroup.PositiveInt = "10000";
-            myGroup.IgnoreThis = true;
-            myGroup.Grouptype = GroupType.small;
-            Car thisCar = (Car)myGroup.myCar("1234566");
-
-            // Prints the license number just to prove the car was created.
-            Console.WriteLine("License#: " + thisCar.licenseNumber + "\n");
-
-            // Serializes the class and closes the TextWriter.
-            mySerializer.Serialize(writer, myGroup);
-            writer.Close();
-        }
-
-        public void SerializeOverride(string filename)
-        {
-            // Creates an instance of the XmlSerializer class
-            // that overrides the serialization.
-            XmlSerializer overRideSerializer = CreateOverrideSerializer();
-
-            // Writing the file requires a TextWriter.
-            TextWriter writer = new StreamWriter(filename);
-
-            // Creates an instance of the class that will be serialized.
-            Group myGroup = new Group();
-
-            // Sets the object properties.
-            myGroup.GroupName = ".NET";
-
-            Byte[] hexByte = new Byte[2]{Convert.ToByte(100),Convert.ToByte(50)};
-            myGroup.GroupNumber = hexByte;
-
-            DateTime myDate = new DateTime(2002, 5, 2);
-            myGroup.Today = myDate;
-
-            myGroup.PositiveInt = "10000";
-            myGroup.IgnoreThis = true;
-            myGroup.Grouptype = GroupType.small;
-            Car thisCar = (Car)myGroup.myCar("1234566");
-
-            // Serializes the class and closes the TextWriter.
-            overRideSerializer.Serialize(writer, myGroup);
-            writer.Close();
-        }
-
-        public void DeserializeOriginal(string filename)
-        {
-            // Creates an instance of the XmlSerializer class.
-            XmlTypeMapping myMapping =(new SoapReflectionImporter().ImportTypeMapping(typeof(Group)));
-            XmlSerializer mySerializer =new XmlSerializer(myMapping);
-
-            TextReader reader = new StreamReader(filename);
-
-            // Deserializes and casts the object.
-            Group myGroup;
-            myGroup = (Group)mySerializer.Deserialize(reader);
-
-            Console.WriteLine(myGroup.GroupName);
-            Console.WriteLine(myGroup.GroupNumber[0]);
-            Console.WriteLine(myGroup.GroupNumber[1]);
-            Console.WriteLine(myGroup.Today);
-            Console.WriteLine(myGroup.PositiveInt);
-            Console.WriteLine(myGroup.IgnoreThis);
-            Console.WriteLine();
-        }
-
-        public void DeserializeOverride(string filename)
-        {
-            // Creates an instance of the XmlSerializer class.
-            XmlSerializer overRideSerializer = CreateOverrideSerializer();
-            // Reading the file requires a TextReader.
-            TextReader reader = new StreamReader(filename);
-
-            // Deserializes and casts the object.
-            Group myGroup;
-            myGroup = (Group)overRideSerializer.Deserialize(reader);
-
-            Console.WriteLine(myGroup.GroupName);
-            Console.WriteLine(myGroup.GroupNumber[0]);
-            Console.WriteLine(myGroup.GroupNumber[1]);
-            Console.WriteLine(myGroup.Today);
-            Console.WriteLine(myGroup.PositiveInt);
-            Console.WriteLine(myGroup.IgnoreThis);
-        }
-
-        private XmlSerializer CreateOverrideSerializer()
-        {
-            SoapAttributeOverrides mySoapAttributeOverrides =new SoapAttributeOverrides();
-            SoapAttributes soapAtts = new SoapAttributes();
-
-            SoapElementAttribute mySoapElement = new SoapElementAttribute();
-            mySoapElement.ElementName = "xxxx";
-            soapAtts.SoapElement = mySoapElement;
-            mySoapAttributeOverrides.Add(typeof(Group), "PositiveInt",soapAtts);
-
-            // Overrides the IgnoreThis property.
-            SoapIgnoreAttribute myIgnore = new SoapIgnoreAttribute();
-            soapAtts = new SoapAttributes();
-            soapAtts.SoapIgnore = false;
-            mySoapAttributeOverrides.Add(typeof(Group), "IgnoreThis",soapAtts);
-
-            // Overrides the GroupType enumeration.
-            soapAtts = new SoapAttributes();
-            SoapEnumAttribute xSoapEnum = new SoapEnumAttribute();
-            xSoapEnum.Name = "Over1000";
-            soapAtts.SoapEnum = xSoapEnum;
-
-            // Adds the SoapAttributes to the
-            // mySoapAttributeOverrides.
-            mySoapAttributeOverrides.Add(typeof(GroupType), "large",soapAtts);
-
-            // Creates a second enumeration and adds it.
-            soapAtts = new SoapAttributes();
-            xSoapEnum = new SoapEnumAttribute();
-            xSoapEnum.Name = "ZeroTo1000";
-            soapAtts.SoapEnum = xSoapEnum;
-            mySoapAttributeOverrides.Add(typeof(GroupType), "small",soapAtts);
-
-            // Overrides the Group type.
-            soapAtts = new SoapAttributes();
-            SoapTypeAttribute soapType = new SoapTypeAttribute();
-            soapType.TypeName = "Team";
-            soapAtts.SoapType = soapType;
-            mySoapAttributeOverrides.Add(typeof(Group), soapAtts);
-
-            // Creates an XmlTypeMapping that is used to create an instance
-            // of the XmlSerializer class. Then returns the XmlSerializer.
-            XmlTypeMapping myMapping = (new SoapReflectionImporter(mySoapAttributeOverrides)).ImportTypeMapping(typeof(Group));
-
-            XmlSerializer ser = new XmlSerializer(myMapping);
-            return ser;
+            {
+                FileStream stmCar = new FileStream("junk/sample.ExamCard",FileMode.Open);
+                SoapFormatter sopCar = new SoapFormatter();
+                ExamCard vehicle = (ExamCard)sopCar.Deserialize(stmCar);
+            }
         }
     }
 }
