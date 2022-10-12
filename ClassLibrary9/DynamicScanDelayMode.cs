@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Philips.PmsMR.Platform.ECPlatform
+namespace Philips.PmsMR.Acquisition.AcqGlo
 {
     [Serializable]
-    public class HtmlItemDescription
+    public class DynamicScanDelayMode
     {
-        public byte[] dataBuffer;
     }
 }

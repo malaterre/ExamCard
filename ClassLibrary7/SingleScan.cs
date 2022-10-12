@@ -7,6 +7,28 @@ using System.Threading.Tasks;
 namespace Philips.PmsMR.Acquisition.ScanSet
 {
     [Serializable]
+    public class ScanSet
+    {
+        public ExecutionStepList executionSteps;
+    }
+
+    [Serializable]
+    public class     ExecutionStepList
+    {
+        public object list;
+    }
+    [Serializable]
+    public class ExecutionStep
+    {
+        public object singleScan ;
+        public object contrastInjectionProtocol;
+        public bool contrast;
+        public bool executionStepContrastUsed;
+        public object dynamicStep;
+
+    }
+
+    [Serializable]
     public class SingleScan
     {
         public string name;
@@ -22,5 +44,15 @@ namespace Philips.PmsMR.Acquisition.ScanSet
         public object geoLinkID;
         public object scanProperties;
         public object useViewingProcedure;
+    }
+
+    [Serializable]
+    public class ContrastInjectionProtocol
+    {
+        public object agent;
+        public object routeOfAdministration;
+        public int volume;
+        public double concentration;
+        public int injectionStartDynamicNumber;
     }
 }

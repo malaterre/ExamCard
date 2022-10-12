@@ -1,4 +1,5 @@
-﻿using Philips.PmsMR.Acquisition.ScanSet;
+﻿using Philips.PmsMR.Acquisition.AcqGlo;
+using Philips.PmsMR.Acquisition.ScanSet;
 using Philips.PmsMR.ExamCards.ECModel;
 using Philips.PmsMR.Platform.Aswglo;
 using Philips.PmsMR.Platform.ECPlatform;
@@ -28,6 +29,8 @@ namespace ConsoleApp
                 HtmlItemDescription h = new HtmlItemDescription();
                 RelationshipManagerData r = new RelationshipManagerData();
                 SingleScan s = new SingleScan();
+                ScanProcedure ss = new ScanProcedure();
+                DynamicScanDelayMode d = new DynamicScanDelayMode();
 
                 FileStream stmCar = new FileStream("wip.ExamCard", FileMode.Create);
                 SoapFormatter sopCar = new SoapFormatter();
