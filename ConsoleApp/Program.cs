@@ -1,6 +1,8 @@
 ﻿using ClassLibrary1;
 using System;
 using System.IO;
+using System.Text;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace ConsoleApp
@@ -17,14 +19,22 @@ namespace ConsoleApp
 
             {
                 var myObject = new Class1();
+
+                // Stream s = new MemoryStream();
+                Stream s = new FileStream("myFileName.xml", FileMode.Create);
+                XmlWriter writer = new XmlTextWriter(s, Encoding.UTF8);
+
                 // Serializes a class named Group as a SOAP message.  
-                XmlTypeMapping myTypeMapping =
-                    new SoapReflectionImporter().ImportTypeMapping(typeof(Class1));
+                SoapReflectionImporter importer = new SoapReflectionImporter();
+                XmlTypeMapping myTypeMapping = importer.ImportTypeMapping(typeof(Class1), "mathieu");
                 XmlSerializer mySerializer = new XmlSerializer(myTypeMapping);
                 // To write to a file, create a StreamWriter object.  
-                StreamWriter myWriter = new StreamWriter("myFileName.xml");
-                mySerializer.Serialize(myWriter, myObject);
-                myWriter.Close();
+                // StreamWriter myWriter = new StreamWriter("myFileName.xml");
+                // mySerializer.Serialize(myWriter, myObject);
+                // myWriter.Close();
+
+                writer.WriteStartElement("root");
+                mySerializer.Serialize(writer, myObject);
             }
 
             {
