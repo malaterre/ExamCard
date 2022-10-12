@@ -2,4 +2,4 @@
 
 set -x
 
-trang -I xml -O xsd *.ExamCard examcard.xsd
+trang -I xml -O xsd *.ExamCard ../xsd/examcard.xsd
