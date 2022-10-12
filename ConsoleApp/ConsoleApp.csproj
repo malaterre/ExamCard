@@ -54,10 +54,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary10\ClassLibrary10.csproj">
-      <Project>{d7d31eb8-7067-49b0-97c6-4d1bb41ad945}</Project>
-      <Name>ClassLibrary10</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ClassLibrary1\ClassLibrary1.csproj">
       <Project>{EC597197-C453-40C4-8396-484D44D5330C}</Project>
       <Name>ClassLibrary1</Name>

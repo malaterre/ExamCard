@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Philips.PmsMR.Platform.Aswglo;
+using System;
 
 namespace Philips.PmsMR.Acquisition.ScanSet
 {
@@ -32,25 +29,25 @@ namespace Philips.PmsMR.Acquisition.ScanSet
     public class SingleScan
     {
         public string name;
-        public object smartGeoType;
+        public SmartPlanType smartGeoType;
         public object vertebraRanges;
         public object scanProcedure;
-        public object stationNumber;
+        public int stationNumber;
         public object detail;
         public object geometryName;
-        public object reuseStackSizes;
+        public bool reuseStackSizes;
         public object viewingProcedure;
-        public object pushToWorkStation;
-        public object geoLinkID;
+        public bool pushToWorkStation;
+        public int geoLinkID;
         public object scanProperties;
-        public object useViewingProcedure;
+        public bool useViewingProcedure;
     }
 
     [Serializable]
     public class ContrastInjectionProtocol
     {
-        public object agent;
-        public object routeOfAdministration;
+        public string agent;
+        public string routeOfAdministration;
         public int volume;
         public double concentration;
         public int injectionStartDynamicNumber;

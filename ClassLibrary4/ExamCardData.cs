@@ -17,8 +17,8 @@ namespace Philips.PmsMR.ExamCards.ECModel
         public object description;
         public object seriesName;
         public object viewingProcedure;
-        public object useViewingProcedure;
-        public object pushToWorkStation;
+        public bool useViewingProcedure;
+        public bool pushToWorkStation;
     }
 
 }

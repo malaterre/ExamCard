@@ -40,13 +40,17 @@ namespace ConsoleApp
 
             {
                 //string filename = "data/PHANTOM_QT1_SLU_20151230.ExamCard";
-                //string filename = "data/SR_ADULT_007.ExamCard";
+                string filename = "data/SR_ADULT_007.ExamCard";
                 //string filename = "data/SR_ADULT_018.ExamCard";
                 //string filename = "data/TADPOLE_CHILD_V3.ExamCard";
-                string filename = "data/spine_generic_philips_R53.ExamCard";
+                //string filename = "data/spine_generic_philips_R53.ExamCard";
                 FileStream stmCar = new FileStream(filename, FileMode.Open);
                 SoapFormatter sopCar = new SoapFormatter();
                 ExamCard vehicle = (ExamCard)sopCar.Deserialize(stmCar);
+
+                FileStream stmCar2 = new FileStream("roundtrip.ExamCard", FileMode.Create);
+                SoapFormatter sopCar2 = new SoapFormatter();
+                sopCar2.Serialize(stmCar2, vehicle);
             }
         }
     }

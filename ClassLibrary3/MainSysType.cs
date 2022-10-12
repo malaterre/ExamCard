@@ -2,13 +2,15 @@
 
 namespace Philips.PmsMR.Platform.Aswglo
 {
-    /*
+    
     [Serializable]
-    public class MainSysType
+    public enum MainSysType
     {
-    }*/
+        AWASW_MST_T30
+    }
     [Serializable]
-    public class SmartPlanType
+    public enum SmartPlanType
     {
+        AWPLAN_SMARTPLAN_TYPE_NONE
     }
 }

@@ -2,7 +2,6 @@
 using Philips.PmsMR.Platform.ECPlatform;
 using Philips.PmsMR.Platform.ScannerContext;
 using System;
-using System.Collections.Generic;
 
 namespace Philips.PmsMR.ExamCards.ECModel
 {
@@ -26,11 +25,11 @@ namespace Philips.PmsMR.ExamCards.ECModel
         public int alignOverlap;
         public bool pushToWorkStation;
         // new version:
-        public object anatomy;
+        /*public object anatomy;
         public object reviewRequired;
         public object paediatric;
         public object patientWeight;
-        public object selectedCoils;
+        public object selectedCoils;*/
     }
     [Serializable]
     public class ECInstrumentList
@@ -40,11 +39,11 @@ namespace Philips.PmsMR.ExamCards.ECModel
     [Serializable]
     public class ExamCardConfig
     {
-        public string allowedMainSystemTypes;
-        public string allowedGradientChains;
-        public string swOptions;
-        public string hwOptions;
-        public string coilOptions;
+        public object allowedMainSystemTypes;
+        public object allowedGradientChains;
+        public object swOptions;
+        public object hwOptions;
+        public object coilOptions;
     }
     [Serializable]
     public class ExamCardsVersion
@@ -57,9 +56,9 @@ namespace Philips.PmsMR.ExamCards.ECModel
     public class ECInstrument
     {
         // old version:
-        //public object scanStep;
+        public object scanStep;
         // new version:
-        public object scanSet;
+        /*public object scanSet;*/
     }
     [Serializable]
     public class ScanStep

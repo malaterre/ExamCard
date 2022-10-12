@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Philips.PmsMR.Platform.ECPlatform
 {
     [Serializable]
     public class HtmlItemDescription
     {
-        public byte[] dataBuffer;
+        // [SoapAttribute(DataType = "base64Binary")]
+        public object dataBuffer;
         // new version:
-        public object htmlDataBuffer;
+        /*public object htmlDataBuffer;*/
     }
 }

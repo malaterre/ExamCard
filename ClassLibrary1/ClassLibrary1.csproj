@@ -45,10 +45,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary10\ClassLibrary10.csproj">
-      <Project>{d7d31eb8-7067-49b0-97c6-4d1bb41ad945}</Project>
-      <Name>ClassLibrary10</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ClassLibrary2\ClassLibrary2.csproj">
       <Project>{A59597EA-E7E5-47DE-A410-F31E7B5E35CB}</Project>
       <Name>ClassLibrary2</Name>

@@ -3,9 +3,9 @@
 namespace Philips.PmsMR.Platform.ScannerContext
 {
     [Serializable]
-    public class PatientPosition
+    public enum PatientPosition
     {
-        public int a;
+        PatientPos_HFS
     }
     [Serializable]
     public class DockMode

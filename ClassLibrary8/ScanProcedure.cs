@@ -1,25 +1,26 @@
 ﻿using Philips.PmsMR.Platform.Aswglo;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Philips.PmsMR.Acquisition.AcqGlo
 {
+    public enum TypeOfApplicationMode
+    {
+        AGDEF_APPL_IMAGING,
+        
+    }
     [Serializable]
     public class ScanProcedure
     {
         public byte[] parameterData;
-        public object methodDescription;
-        public object name;
-        public object applicationMode;
-        public object linkToOriginalProtocol;
-        public object lastModifiedTimeUtc;
-        public object linkState;
-        public object NameChanged;
-        public object Modified;
-        public object Disposing;
+        public string methodDescription;
+        public string name;
+        public TypeOfApplicationMode applicationMode;
+        public string[] linkToOriginalProtocol;
+        public string lastModifiedTimeUtc;
+        public bool linkState;
+        public string NameChanged;
+        public string Modified;
+        public string Disposing;
     }
     [Serializable]
     public class ScanProperties
@@ -44,7 +45,7 @@ namespace Philips.PmsMR.Acquisition.AcqGlo
     [Serializable]
     public class DynamicStepProperties
     {
-        public object delayMode;
+        public DynamicScanDelayMode delayMode;
         public int delayDuration;
         public int dynamicCount;
         public int firstDynamic;
