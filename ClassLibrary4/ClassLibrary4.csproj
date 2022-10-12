@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A59597EA-E7E5-47DE-A410-F31E7B5E35CB}</ProjectGuid>
+    <ProjectGuid>{98CE0FAA-DA83-46AB-B992-66304C0D5F2A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ClassLibrary2</RootNamespace>
-    <AssemblyName>philips.pmsmr.platform.scannercontext.wrapper_mcp</AssemblyName>
+    <RootNamespace>ClassLibrary4</RootNamespace>
+    <AssemblyName>philips.pmsmr.examcards.ecmodel.datamodel_cs</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -41,8 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PatientPosition.cs" />
+    <Compile Include="ExamCardData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ClassLibrary6\ClassLibrary6.csproj">
+      <Project>{DE1680D6-0831-4E91-AB90-FA19BAC8D5BF}</Project>
+      <Name>ClassLibrary6</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

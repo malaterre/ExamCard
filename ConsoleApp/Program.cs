@@ -1,4 +1,7 @@
-﻿using Philips.PmsMR.ExamCards.ECModel;
+﻿using Philips.PmsMR.Acquisition.ScanSet;
+using Philips.PmsMR.ExamCards.ECModel;
+using Philips.PmsMR.Platform.Aswglo;
+using Philips.PmsMR.Platform.ECPlatform;
 using Philips.PmsMR.Platform.ScannerContext;
 using System;
 using System.Collections.Generic;
@@ -19,6 +22,12 @@ namespace ConsoleApp
                 ExamCard myGroup = new ExamCard();
                 myGroup.name = "SR_ADULT_007";
                 myGroup.patientOrientation = new PatientPosition();
+                myGroup.mainSystemType = new MainSysType();
+
+                ExamCardData e = new ExamCardData();
+                HtmlItemDescription h = new HtmlItemDescription();
+                RelationshipManagerData r = new RelationshipManagerData();
+                SingleScan s = new SingleScan();
 
                 FileStream stmCar = new FileStream("wip.ExamCard", FileMode.Create);
                 SoapFormatter sopCar = new SoapFormatter();

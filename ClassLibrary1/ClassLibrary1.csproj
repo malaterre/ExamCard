@@ -49,6 +49,18 @@
       <Project>{A59597EA-E7E5-47DE-A410-F31E7B5E35CB}</Project>
       <Name>ClassLibrary2</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ClassLibrary3\ClassLibrary3.csproj">
+      <Project>{83390849-DFBA-4DDD-87F0-97820BE07326}</Project>
+      <Name>ClassLibrary3</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ClassLibrary4\ClassLibrary4.csproj">
+      <Project>{98ce0faa-da83-46ab-b992-66304c0d5f2a}</Project>
+      <Name>ClassLibrary4</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ClassLibrary5\ClassLibrary5.csproj">
+      <Project>{C27747C1-8B6D-4131-8DF8-2C4C75137B49}</Project>
+      <Name>ClassLibrary5</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
