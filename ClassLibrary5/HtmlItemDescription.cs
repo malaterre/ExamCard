@@ -10,5 +10,7 @@ namespace Philips.PmsMR.Platform.ECPlatform
     public class HtmlItemDescription
     {
         public byte[] dataBuffer;
+        // new version:
+        public object htmlDataBuffer;
     }
 }

@@ -28,6 +28,9 @@ namespace Philips.PmsMR.ExamCards.ECModel
         // new version:
         public object anatomy;
         public object reviewRequired;
+        public object paediatric;
+        public object patientWeight;
+        public object selectedCoils;
     }
     [Serializable]
     public class ECInstrumentList
@@ -53,7 +56,10 @@ namespace Philips.PmsMR.ExamCards.ECModel
     [Serializable]
     public class ECInstrument
     {
-        public object scanStep;
+        // old version:
+        //public object scanStep;
+        // new version:
+        public object scanSet;
     }
     [Serializable]
     public class ScanStep
