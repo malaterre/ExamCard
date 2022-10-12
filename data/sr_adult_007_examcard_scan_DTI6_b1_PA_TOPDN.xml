@@ -1,0 +1,1251 @@
+  <scan name="DTI6_b1_PA_TOPDN">
+    <param name="EX_geometry_seperator" display="off" type="integer">
+      <value>1634755923</value>
+    </param>
+    <param name="EX_ACQ_nucleus" display="off" type="enum">
+      <value>H1</value>
+    </param>
+    <param name="EX_GEO_stacks_coil_ids" display="off" type="enum">
+      <value>SENSE_HEAD_32P</value>
+      <value>SENSE_HEAD_8</value>
+      <value>SENSE_HEAD_8</value>
+      <value>SENSE_HEAD_8</value>
+      <value>SENSE_HEAD_8</value>
+      <value>SENSE_HEAD_8</value>
+      <value>SENSE_HEAD_8</value>
+      <value>SENSE_HEAD_8</value>
+      <value>SENSE_HEAD_8</value>
+      <value>SENSE_HEAD_8</value>
+      <value>SENSE_HEAD_8</value>
+      <value>SENSE_HEAD_8</value>
+      <value>SENSE_HEAD_8</value>
+      <value>SENSE_HEAD_8</value>
+      <value>SENSE_HEAD_8</value>
+      <value>SENSE_HEAD_8</value>
+      <value>SENSE_HEAD_8</value>
+      <value>SENSE_HEAD_8</value>
+      <value>SENSE_HEAD_8</value>
+      <value>SENSE_HEAD_8</value>
+    </param>
+    <param name="EX_GEO_stacks_cbb1_coils" display="off" type="enum">
+      <value>N_COIL</value>
+      <value>N_COIL</value>
+      <value>N_COIL</value>
+      <value>N_COIL</value>
+      <value>N_COIL</value>
+      <value>N_COIL</value>
+      <value>N_COIL</value>
+      <value>N_COIL</value>
+      <value>N_COIL</value>
+      <value>N_COIL</value>
+      <value>N_COIL</value>
+      <value>N_COIL</value>
+      <value>N_COIL</value>
+      <value>N_COIL</value>
+      <value>N_COIL</value>
+      <value>N_COIL</value>
+      <value>N_COIL</value>
+      <value>N_COIL</value>
+      <value>N_COIL</value>
+      <value>N_COIL</value>
+    </param>
+    <param name="EX_GEO_stacks_cbb2_coils" display="off" type="enum">
+      <value>N_COIL</value>
+      <value>N_COIL</value>
+      <value>N_COIL</value>
+      <value>N_COIL</value>
+      <value>N_COIL</value>
+      <value>N_COIL</value>
+      <value>N_COIL</value>
+      <value>N_COIL</value>
+      <value>N_COIL</value>
+      <value>N_COIL</value>
+      <value>N_COIL</value>
+      <value>N_COIL</value>
+      <value>N_COIL</value>
+      <value>N_COIL</value>
+      <value>N_COIL</value>
+      <value>N_COIL</value>
+      <value>N_COIL</value>
+      <value>N_COIL</value>
+      <value>N_COIL</value>
+      <value>N_COIL</value>
+    </param>
+    <param name="EX_GEO_stacks_coil_parts" display="off" type="enum">
+      <value>R_AB</value>
+      <value>SENSE</value>
+      <value>SENSE</value>
+      <value>SENSE</value>
+      <value>SENSE</value>
+      <value>SENSE</value>
+      <value>SENSE</value>
+      <value>SENSE</value>
+      <value>SENSE</value>
+      <value>SENSE</value>
+      <value>SENSE</value>
+      <value>SENSE</value>
+      <value>SENSE</value>
+      <value>SENSE</value>
+      <value>SENSE</value>
+      <value>SENSE</value>
+      <value>SENSE</value>
+      <value>SENSE</value>
+      <value>SENSE</value>
+      <value>SENSE</value>
+    </param>
+    <param name="EX_GEO_stacks_channel_combis" display="off" type="integer">
+      <value>65535</value>
+      <value>255</value>
+      <value>255</value>
+      <value>255</value>
+      <value>255</value>
+      <value>255</value>
+      <value>255</value>
+      <value>255</value>
+      <value>255</value>
+      <value>255</value>
+      <value>255</value>
+      <value>255</value>
+      <value>255</value>
+      <value>255</value>
+      <value>255</value>
+      <value>255</value>
+      <value>255</value>
+      <value>255</value>
+      <value>255</value>
+      <value>255</value>
+    </param>
+    <param name="EX_GEO_stacks_coil_connections" display="off" type="enum">
+      <value>DEFAULT</value>
+      <value>DEFAULT</value>
+      <value>DEFAULT</value>
+      <value>DEFAULT</value>
+      <value>DEFAULT</value>
+      <value>DEFAULT</value>
+      <value>DEFAULT</value>
+      <value>DEFAULT</value>
+      <value>DEFAULT</value>
+      <value>DEFAULT</value>
+      <value>DEFAULT</value>
+      <value>DEFAULT</value>
+      <value>DEFAULT</value>
+      <value>DEFAULT</value>
+      <value>DEFAULT</value>
+      <value>DEFAULT</value>
+      <value>DEFAULT</value>
+      <value>DEFAULT</value>
+      <value>DEFAULT</value>
+      <value>DEFAULT</value>
+    </param>
+    <param name="EX_GEO_stacks_coil_2_ids" display="off" type="enum">
+      <value>SENSE_HEAD_32AH</value>
+      <value>HEAD_QUAD</value>
+      <value>HEAD_QUAD</value>
+      <value>HEAD_QUAD</value>
+      <value>HEAD_QUAD</value>
+      <value>HEAD_QUAD</value>
+      <value>HEAD_QUAD</value>
+      <value>HEAD_QUAD</value>
+      <value>HEAD_QUAD</value>
+      <value>HEAD_QUAD</value>
+      <value>HEAD_QUAD</value>
+      <value>HEAD_QUAD</value>
+      <value>HEAD_QUAD</value>
+      <value>HEAD_QUAD</value>
+      <value>HEAD_QUAD</value>
+      <value>HEAD_QUAD</value>
+      <value>HEAD_QUAD</value>
+      <value>HEAD_QUAD</value>
+      <value>HEAD_QUAD</value>
+      <value>HEAD_QUAD</value>
+    </param>
+    <param name="EX_GEO_stacks_coil_2_parts" display="off" type="enum">
+      <value>R_AB</value>
+      <value>RA</value>
+      <value>RA</value>
+      <value>RA</value>
+      <value>RA</value>
+      <value>RA</value>
+      <value>RA</value>
+      <value>RA</value>
+      <value>RA</value>
+      <value>RA</value>
+      <value>RA</value>
+      <value>RA</value>
+      <value>RA</value>
+      <value>RA</value>
+      <value>RA</value>
+      <value>RA</value>
+      <value>RA</value>
+      <value>RA</value>
+      <value>RA</value>
+      <value>RA</value>
+    </param>
+    <param name="EX_GEO_stacks_channel_combis_2" display="off" type="integer">
+      <value>65535</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+    </param>
+    <param name="EX_GEO_dual_connector" display="off" type="enum">
+      <value>YES</value>
+    </param>
+    <param name="EX_PROC_clear_enable" display="off" type="enum">
+      <value>YES</value>
+    </param>
+    <param name="EX_PROC_b1_compensation" display="off" type="enum">
+      <value>NO</value>
+    </param>
+    <param name="EX_GEO_fov" display="on" type="float">
+      <value>256.000000</value>
+    </param>
+    <param name="EX_GEO_fov_p" display="on" type="float">
+      <value>256.000000</value>
+    </param>
+    <param name="EX_GEO_stacks_fov_ss" display="off" type="float">
+      <value>132.000000</value>
+      <value>120.000000</value>
+      <value>120.000000</value>
+      <value>120.000000</value>
+      <value>120.000000</value>
+      <value>120.000000</value>
+      <value>120.000000</value>
+      <value>120.000000</value>
+      <value>120.000000</value>
+      <value>120.000000</value>
+      <value>120.000000</value>
+      <value>120.000000</value>
+      <value>120.000000</value>
+      <value>120.000000</value>
+      <value>120.000000</value>
+      <value>120.000000</value>
+      <value>120.000000</value>
+      <value>120.000000</value>
+      <value>120.000000</value>
+      <value>120.000000</value>
+    </param>
+    <param name="EX_GEO_voxel_size_m" display="on" type="float">
+      <value>2.000000</value>
+    </param>
+    <param name="EX_GEO_voxel_size_p" display="on" type="float">
+      <value>2.000000</value>
+    </param>
+    <param name="EX_GEO_voxel_size_s" display="on" type="float">
+      <value>2.000000</value>
+    </param>
+    <param name="EX_PROC_recon_voxel_size" display="off" type="float">
+      <value>2.000000</value>
+    </param>
+    <param name="EX_GEO_rect_fov_perc" display="off" type="float">
+      <value>100.000000</value>
+    </param>
+    <param name="EX_ACQ_small_fov" display="off" type="enum">
+      <value>NO</value>
+    </param>
+    <param name="EX_ACQ_foldover_sup" display="off" type="enum">
+      <value>NO</value>
+    </param>
+    <param name="EX_ACQ_scan_resol" display="off" type="integer">
+      <value>128</value>
+    </param>
+    <param name="EX_PROC_recon_resol" display="off" type="integer">
+      <value>128</value>
+    </param>
+    <param name="EX_ACQ_reduced_acq_time" display="off" type="float">
+      <value>100.000000</value>
+    </param>
+    <param name="EX_GEO_sense_enable" display="off" type="enum">
+      <value>YES</value>
+    </param>
+    <param name="EX_GEO_sense_p_red_factor" display="off" type="float">
+      <value>2.000000</value>
+    </param>
+    <param name="EX_GEO_sense_p_os_factor" display="off" type="float">
+      <value>1.000000</value>
+    </param>
+    <param name="EX_ACQ_kt_enable" display="off" type="enum">
+      <value>N</value>
+    </param>
+    <param name="EX_GEO_stacks" display="on" type="integer">
+      <value>1</value>
+    </param>
+    <param name="EX_GEO_stacks_types" display="off" type="enum">
+      <value>PARALLEL_STACK</value>
+      <value>PARALLEL_STACK</value>
+      <value>PARALLEL_STACK</value>
+      <value>PARALLEL_STACK</value>
+      <value>PARALLEL_STACK</value>
+      <value>PARALLEL_STACK</value>
+      <value>PARALLEL_STACK</value>
+      <value>PARALLEL_STACK</value>
+      <value>PARALLEL_STACK</value>
+      <value>PARALLEL_STACK</value>
+      <value>PARALLEL_STACK</value>
+      <value>PARALLEL_STACK</value>
+      <value>PARALLEL_STACK</value>
+      <value>PARALLEL_STACK</value>
+      <value>PARALLEL_STACK</value>
+      <value>PARALLEL_STACK</value>
+      <value>PARALLEL_STACK</value>
+      <value>PARALLEL_STACK</value>
+      <value>PARALLEL_STACK</value>
+      <value>PARALLEL_STACK</value>
+    </param>
+    <param name="EX_GEO_stacks_slices" display="off" type="integer">
+      <value>66</value>
+      <value>60</value>
+      <value>60</value>
+      <value>60</value>
+      <value>60</value>
+      <value>60</value>
+      <value>60</value>
+      <value>60</value>
+      <value>60</value>
+      <value>60</value>
+      <value>60</value>
+      <value>60</value>
+      <value>60</value>
+      <value>60</value>
+      <value>60</value>
+      <value>60</value>
+      <value>60</value>
+      <value>60</value>
+      <value>60</value>
+      <value>60</value>
+    </param>
+    <param name="EX_GEO_slice_thickness" display="off" type="float">
+      <value>2.000000</value>
+    </param>
+    <param name="EX_GEO_slice_gap_mode" display="off" type="enum">
+      <value>USER_DEF</value>
+    </param>
+    <param name="EX_GEO_stacks_slice_gaps" display="off" type="float">
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+    </param>
+    <param name="EX_GEO_stacks_orientations" display="off" type="enum">
+      <value>RANSVERSAL</value>
+      <value>RANSVERSAL</value>
+      <value>RANSVERSAL</value>
+      <value>RANSVERSAL</value>
+      <value>RANSVERSAL</value>
+      <value>RANSVERSAL</value>
+      <value>RANSVERSAL</value>
+      <value>RANSVERSAL</value>
+      <value>RANSVERSAL</value>
+      <value>RANSVERSAL</value>
+      <value>RANSVERSAL</value>
+      <value>RANSVERSAL</value>
+      <value>RANSVERSAL</value>
+      <value>RANSVERSAL</value>
+      <value>RANSVERSAL</value>
+      <value>RANSVERSAL</value>
+      <value>RANSVERSAL</value>
+      <value>RANSVERSAL</value>
+      <value>RANSVERSAL</value>
+      <value>RANSVERSAL</value>
+    </param>
+    <param name="EX_GEO_stacks_prep_dirs" display="off" type="enum">
+      <value>A</value>
+      <value>A</value>
+      <value>A</value>
+      <value>A</value>
+      <value>A</value>
+      <value>A</value>
+      <value>A</value>
+      <value>A</value>
+      <value>A</value>
+      <value>A</value>
+      <value>A</value>
+      <value>A</value>
+      <value>A</value>
+      <value>A</value>
+      <value>A</value>
+      <value>A</value>
+      <value>A</value>
+      <value>A</value>
+      <value>A</value>
+      <value>A</value>
+    </param>
+    <param name="EX_GEO_stacks_fat_shift_dirs" display="off" type="enum">
+      <value>P</value>
+      <value>F</value>
+      <value>F</value>
+      <value>F</value>
+      <value>F</value>
+      <value>F</value>
+      <value>F</value>
+      <value>F</value>
+      <value>F</value>
+      <value>F</value>
+      <value>F</value>
+      <value>F</value>
+      <value>F</value>
+      <value>F</value>
+      <value>F</value>
+      <value>F</value>
+      <value>F</value>
+      <value>F</value>
+      <value>F</value>
+      <value>F</value>
+    </param>
+    <param name="EX_GEO_stacks_ap_offcentres" display="off" type="float">
+      <value>-25.011045</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+    </param>
+    <param name="EX_GEO_stacks_lr_offcentres" display="off" type="float">
+      <value>-0.557074</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+    </param>
+    <param name="EX_GEO_stacks_fh_offcentres" display="off" type="float">
+      <value>23.201834</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+    </param>
+    <param name="EX_GEO_stacks_ap_angulations" display="off" type="float">
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+    </param>
+    <param name="EX_GEO_stacks_lr_angulations" display="off" type="float">
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+    </param>
+    <param name="EX_GEO_stacks_fh_angulations" display="off" type="float">
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+    </param>
+    <param name="EX_ACQ_min_nr_packages" display="off" type="integer">
+      <value>1</value>
+    </param>
+    <param name="EX_ACQ_slice_order" display="off" type="enum">
+      <value>DFAULT</value>
+    </param>
+    <param name="EX_GEO_large_table_movement" display="off" type="enum">
+      <value>NO</value>
+    </param>
+    <param name="EX_GEO_plan_align" display="off" type="enum">
+      <value>NO</value>
+    </param>
+    <param name="EX_REST_slabs" display="off" type="integer">
+      <value>0</value>
+    </param>
+    <param name="EX_TRACK_tracking" display="off" type="enum">
+      <value>ONE</value>
+    </param>
+    <param name="EX_GEO_ia_positioning" display="off" type="enum">
+      <value>NO</value>
+    </param>
+    <param name="EX_GEO_external_control" display="off" type="enum">
+      <value>NO</value>
+    </param>
+    <param name="EX_USEGEOM_geometry_names" display="off" type="string">
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
+    </param>
+    <param name="EX_USEGEOM_stack_use_geoms" display="off" type="enum">
+      <value>NNE</value>
+      <value>NNE</value>
+      <value>NNE</value>
+      <value>NNE</value>
+      <value>NNE</value>
+      <value>NNE</value>
+      <value>NNE</value>
+      <value>NNE</value>
+      <value>NNE</value>
+      <value>NNE</value>
+      <value>NNE</value>
+      <value>NNE</value>
+      <value>NNE</value>
+      <value>NNE</value>
+      <value>NNE</value>
+      <value>NNE</value>
+      <value>NNE</value>
+      <value>NNE</value>
+      <value>NNE</value>
+      <value>NNE</value>
+    </param>
+    <param name="EX_USEGEOM_stack_use_geom_names" display="off" type="string">
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
+      <value></value>
+    </param>
+    <param name="EX_GEO_allow_table_movement" display="off" type="enum">
+      <value>NO</value>
+    </param>
+    <param name="EX_GEO_patient_position" display="off" type="enum">
+      <value>EAD_FIRST</value>
+    </param>
+    <param name="EX_GEO_patient_orientation" display="off" type="enum">
+      <value>SUPINE</value>
+    </param>
+    <param name="EX_contrast_seperator" display="off" type="integer">
+      <value>1634755923</value>
+    </param>
+    <param name="EX_ACQ_scan_type" display="off" type="enum">
+      <value>IMAGING</value>
+    </param>
+    <param name="EX_ACQ_scan_mode" display="off" type="enum">
+      <value>MS</value>
+    </param>
+    <param name="EX_ACQ_imaging_sequence" display="off" type="enum">
+      <value>E</value>
+    </param>
+    <param name="EX_ACQ_rase_mode" display="off" type="enum">
+      <value>NO</value>
+    </param>
+    <param name="EX_ACQ_mode" display="off" type="enum">
+      <value>CARTESIAN</value>
+    </param>
+    <param name="EX_ACQ_fast_imaging_mode" display="off" type="enum">
+      <value>EPI</value>
+    </param>
+    <param name="EX_ACQ_shot_mode" display="off" type="enum">
+      <value>SSH</value>
+    </param>
+    <param name="EX_ACQ_echoes" display="off" type="integer">
+      <value>1</value>
+    </param>
+    <param name="EX_ACQ_partial_echo" display="off" type="enum">
+      <value>NO</value>
+    </param>
+    <param name="EX_ACQ_first_echo_time_enum" display="on" type="enum">
+      <value>USER_DEF</value>
+    </param>
+    <param name="EX_ACQ_first_echo_time" display="on" type="float">
+      <value>85.000000</value>
+    </param>
+    <param name="EX_ACQ_flip_angle" display="off" type="float">
+      <value>90.000000</value>
+    </param>
+    <param name="EX_ACQ_se_rep_time_enum" display="on" type="enum">
+      <value>USER_DEF</value>
+    </param>
+    <param name="EX_ACQ_se_rep_time" display="on" type="float">
+      <value>8200.000000</value>
+    </param>
+    <param name="EX_ACQ_partial_matrix" display="off" type="enum">
+      <value>YES</value>
+    </param>
+    <param name="EX_ACQ_partial_matrix_factor" display="off" type="float">
+      <value>0.611940</value>
+    </param>
+    <param name="EX_ACQ_water_fat_shift" display="off" type="enum">
+      <value>MINIMUM</value>
+    </param>
+    <param name="EX_ACQ_RF_shim_data" display="off" type="float">
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+    </param>
+    <param name="EX_AS_shim" display="off" type="enum">
+      <value>AUTO</value>
+    </param>
+    <param name="EX_shim_from_idl" display="off" type="enum">
+      <value>NO</value>
+    </param>
+    <param name="EX_calculate_shim_now" display="off" type="enum">
+      <value>NO</value>
+    </param>
+    <param name="EX_shim_freq_det" display="off" type="enum">
+      <value>AUTO</value>
+    </param>
+    <param name="EX_shim_second_x1" display="off" type="float">
+      <value>0.000000</value>
+    </param>
+    <param name="EX_shim_second_y1" display="off" type="float">
+      <value>0.000000</value>
+    </param>
+    <param name="EX_shim_second_z1" display="off" type="float">
+      <value>0.000000</value>
+    </param>
+    <param name="EX_shim_second_z2" display="off" type="float">
+      <value>0.000000</value>
+    </param>
+    <param name="EX_shim_second_zx" display="off" type="float">
+      <value>0.000000</value>
+    </param>
+    <param name="EX_shim_second_zy" display="off" type="float">
+      <value>0.000000</value>
+    </param>
+    <param name="EX_shim_second_x2y2" display="off" type="float">
+      <value>0.000000</value>
+    </param>
+    <param name="EX_shim_second_2xy" display="off" type="float">
+      <value>0.000000</value>
+    </param>
+    <param name="EX_shim_second_z3" display="off" type="float">
+      <value>0.000000</value>
+    </param>
+    <param name="EX_shim_second_z2x" display="off" type="float">
+      <value>0.000000</value>
+    </param>
+    <param name="EX_shim_second_z2y" display="off" type="float">
+      <value>0.000000</value>
+    </param>
+    <param name="EX_shim_second_zx2y2" display="off" type="float">
+      <value>0.000000</value>
+    </param>
+    <param name="EX_shim_second_xyz" display="off" type="float">
+      <value>0.000000</value>
+    </param>
+    <param name="EX_shim_second_x3" display="off" type="float">
+      <value>0.000000</value>
+    </param>
+    <param name="EX_shim_second_y3" display="off" type="float">
+      <value>0.000000</value>
+    </param>
+    <param name="EX_shim_offset_freq" display="off" type="integer">
+      <value>0</value>
+    </param>
+    <param name="EX_shim_nav_offset_freq" display="off" type="integer">
+      <value>0</value>
+    </param>
+    <param name="EX_shim_nav_x1" display="off" type="float">
+      <value>0.000000</value>
+    </param>
+    <param name="EX_shim_nav_y1" display="off" type="float">
+      <value>0.000000</value>
+    </param>
+    <param name="EX_shim_nav_z1" display="off" type="float">
+      <value>0.000000</value>
+    </param>
+    <param name="EX_ACQ_dixon" display="off" type="enum">
+      <value>N</value>
+    </param>
+    <param name="EX_ACQ_dixon_startup_cycles_enum" display="off" type="enum">
+      <value>DEFAULT</value>
+    </param>
+    <param name="EX_SPIR_fat_suppression" display="off" type="enum">
+      <value>SPIR</value>
+    </param>
+    <param name="EX_SPIR_strength" display="off" type="enum">
+      <value>STRONG</value>
+    </param>
+    <param name="EX_SPIR_freq_offset_enum_fat_sup" display="off" type="enum">
+      <value>DEFAULT</value>
+    </param>
+    <param name="EX_SPIR_water_suppression" display="off" type="enum">
+      <value>N</value>
+    </param>
+    <param name="EX_RFE_gradrev_offres_sup" display="off" type="enum">
+      <value>NO</value>
+    </param>
+    <param name="EX_BBI_type_enum" display="off" type="enum">
+      <value>ONE</value>
+    </param>
+    <param name="EX_MTC_enable" display="off" type="enum">
+      <value>NO</value>
+    </param>
+    <param name="EX_REPP_enable" display="off" type="enum">
+      <value>NO</value>
+    </param>
+    <param name="EX_DIFF_enable" display="off" type="enum">
+      <value>DTI</value>
+    </param>
+    <param name="EX_DIFF_sequence" display="off" type="enum">
+      <value>ETE</value>
+    </param>
+    <param name="EX_DIFF_grad_dur_enum" display="off" type="enum">
+      <value>MAXIMUM</value>
+    </param>
+    <param name="EX_DIFF_use_magnet_frame" display="off" type="enum">
+      <value>NO</value>
+    </param>
+    <param name="EX_DIFF_directional_resolution" display="off" type="enum">
+      <value>LOW</value>
+    </param>
+    <param name="EX_DIFF_nr_weightings" display="off" type="integer">
+      <value>2</value>
+    </param>
+    <param name="EX_DIFF_b_order" display="off" type="enum">
+      <value>LN</value>
+    </param>
+    <param name="EX_DIFF_b_factor" display="off" type="integer">
+      <value>1</value>
+    </param>
+    <param name="EX_DIFF_average_high_b" display="off" type="enum">
+      <value>O</value>
+    </param>
+    <param name="EX_ELASTO_enable" display="off" type="enum">
+      <value>NO</value>
+    </param>
+    <param name="EX_COIL_control_SAR_mode" display="off" type="enum">
+      <value>HIGH</value>
+    </param>
+    <param name="EX_COIL_control_B1_mode" display="off" type="enum">
+      <value>DEFAULT</value>
+    </param>
+    <param name="EX_MULTIX_SAR_mode" display="off" type="enum">
+      <value>ATO</value>
+    </param>
+    <param name="EX_ACQ_pns_mode" display="off" type="enum">
+      <value>MODERATE</value>
+    </param>
+    <param name="EX_ACQ_gradient_mode" display="off" type="enum">
+      <value>MAXIMUM</value>
+    </param>
+    <param name="EX_ACQ_silent_mode" display="off" type="enum">
+      <value>O</value>
+    </param>
+    <param name="EX_motion_seperator" display="off" type="integer">
+      <value>0</value>
+    </param>
+    <param name="EX_CARD_sync" display="off" type="enum">
+      <value>NO</value>
+    </param>
+    <param name="EX_CARD_high_heart_rate" display="off" type="enum">
+      <value>NO</value>
+    </param>
+    <param name="EX_RESP_synch" display="off" type="enum">
+      <value>N</value>
+    </param>
+    <param name="EX_RNAV_resp_comp" display="off" type="enum">
+      <value>OFF</value>
+    </param>
+    <param name="EX_RNAV_weighted_gating" display="off" type="enum">
+      <value>NO</value>
+    </param>
+    <param name="EX_ACQ_flow_compensation" display="off" type="enum">
+      <value>NO</value>
+    </param>
+    <param name="EX_ACQ_slice_spacing_in_time" display="off" type="enum">
+      <value>MINIMAL</value>
+    </param>
+    <param name="EX_ACQ_measurements" display="on" type="integer">
+      <value>1</value>
+    </param>
+    <param name="EX_dynang_seperator" display="off" type="integer">
+      <value>1634755923</value>
+    </param>
+    <param name="EX_ACQ_manual_start" display="off" type="enum">
+      <value>NO</value>
+    </param>
+    <param name="EX_DYN_study" display="off" type="enum">
+      <value>N</value>
+    </param>
+    <param name="EX_DYN_drift_comp_enable" display="off" type="enum">
+      <value>YES</value>
+    </param>
+    <param name="EX_FLL_mode" display="off" type="enum">
+      <value>NO</value>
+    </param>
+    <param name="EX_proc_seperator" display="off" type="integer">
+      <value>0</value>
+    </param>
+    <param name="EX_ACQ_preparation_mode" display="on" type="enum">
+      <value>AUTO</value>
+    </param>
+    <param name="EX_ACQ_interactive_f0" display="off" type="enum">
+      <value>N</value>
+    </param>
+    <param name="EX_ACQ_grad_demo" display="off" type="enum">
+      <value>NO</value>
+    </param>
+    <param name="EX_ACQ_enable_coca" display="off" type="enum">
+      <value>NO</value>
+    </param>
+    <param name="EX_ACQ_smartscout_type" display="off" type="enum">
+      <value>NNE</value>
+    </param>
+    <param name="EX_ACQ_B0_map" display="off" type="enum">
+      <value>N</value>
+    </param>
+    <param name="EX_ACQ_B1_map" display="off" type="enum">
+      <value>N</value>
+    </param>
+    <param name="EX_PV_reformat_mode" display="off" type="enum">
+      <value>NO</value>
+    </param>
+    <param name="EX_PROC_image_types" display="on" type="enum">
+      <value>MODULUS</value>
+      <value>NO</value>
+      <value>NO</value>
+      <value>NO</value>
+    </param>
+    <param name="EX_PROC_autoview_type" display="off" type="enum">
+      <value>MODULUS</value>
+    </param>
+    <param name="EX_PROC_func_types" display="off" type="enum">
+      <value>NO</value>
+      <value>NO</value>
+      <value>NO</value>
+      <value>NO</value>
+    </param>
+    <param name="EX_TS_reference_tissue" display="off" type="enum">
+      <value>WHITE_MATTER</value>
+    </param>
+    <param name="EX_ACQ_epi_2d_phase_corr" display="off" type="enum">
+      <value>NO</value>
+    </param>
+    <param name="EX_PROC_pixel_window" display="off" type="enum">
+      <value>SOFT</value>
+    </param>
+    <param name="EX_PROC_usdef_coca" display="off" type="enum">
+      <value>NO</value>
+    </param>
+    <param name="EX_PROC_coca_acq_nrs" display="off" type="integer">
+      <value>2</value>
+      <value>2</value>
+      <value>2</value>
+      <value>2</value>
+      <value>2</value>
+      <value>2</value>
+      <value>2</value>
+      <value>2</value>
+      <value>2</value>
+      <value>2</value>
+      <value>2</value>
+      <value>2</value>
+      <value>2</value>
+      <value>2</value>
+      <value>2</value>
+      <value>2</value>
+      <value>2</value>
+      <value>2</value>
+      <value>2</value>
+      <value>2</value>
+    </param>
+    <param name="EX_PROC_coca_rec_nrs" display="off" type="integer">
+      <value>1</value>
+      <value>1</value>
+      <value>1</value>
+      <value>1</value>
+      <value>1</value>
+      <value>1</value>
+      <value>1</value>
+      <value>1</value>
+      <value>1</value>
+      <value>1</value>
+      <value>1</value>
+      <value>1</value>
+      <value>1</value>
+      <value>1</value>
+      <value>1</value>
+      <value>1</value>
+      <value>1</value>
+      <value>1</value>
+      <value>1</value>
+      <value>1</value>
+    </param>
+    <param name="EX_PROC_reconstruction_mode" display="off" type="enum">
+      <value>PARALLEL</value>
+    </param>
+    <param name="EX_PROC_save_raw_data" display="off" type="enum">
+      <value>NO</value>
+    </param>
+    <param name="EX_PROC_analyse_with_IQT" display="off" type="enum">
+      <value>O</value>
+    </param>
+    <param name="EX_PROC_to_gyroview" display="off" type="enum">
+      <value>NO</value>
+    </param>
+    <param name="EX_PROC_hardcopy" display="off" type="enum">
+      <value>NO</value>
+    </param>
+    <param name="EX_PROC_pre_recon_filter" display="off" type="enum">
+      <value>NO</value>
+    </param>
+    <param name="EX_PROC_geometry_correction" display="off" type="enum">
+      <value>ONE</value>
+    </param>
+    <param name="EX_pdf_seperator" display="off" type="integer">
+      <value>0</value>
+    </param>
+    <param name="GEX_CONV_id" display="off" type="integer">
+      <value>0</value>
+      <value>28</value>
+      <value>8</value>
+    </param>
+    <param name="GEX_CONV_ppde_update" display="off" type="integer">
+      <value>0</value>
+    </param>
+    <param name="GEX_CONV_made_by_philips" display="off" type="enum">
+      <value>YES</value>
+    </param>
+    <param name="GEX_CONV_applied_conversions" display="off" type="integer">
+      <value>0</value>
+      <value>6</value>
+      <value>2</value>
+      <value>1</value>
+      <value>0</value>
+      <value>7</value>
+      <value>0</value>
+      <value>8</value>
+      <value>-1</value>
+      <value>4</value>
+      <value>8</value>
+      <value>-1</value>
+      <value>-1</value>
+      <value>-1</value>
+      <value>-1</value>
+      <value>-1</value>
+      <value>-1</value>
+      <value>-1</value>
+      <value>-1</value>
+      <value>-1</value>
+      <value>-1</value>
+      <value>-1</value>
+      <value>-1</value>
+      <value>-1</value>
+      <value>-1</value>
+    </param>
+    <param name="GEX_CONV_base_release" display="off" type="integer">
+      <value>18</value>
+    </param>
+    <param name="EX_GEO_voxel_size_conv_done" display="off" type="enum">
+      <value>YES</value>
+    </param>
+    <param name="EX_PROC_scan_pat_ref_id" display="off" type="integer">
+      <value>496574243</value>
+    </param>
+    <param name="EX_PROC_coca_patient_ref_ids" display="off" type="integer">
+      <value>496574243</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+    </param>
+    <param name="EX_PROC_coca_nr_channels" display="off" type="integer">
+      <value>32</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
+    </param>
+    <param name="EX_PROC_prescan_rfshim_rx_scales" display="off" type="float">
+      <value>1.000000</value>
+      <value>1.000000</value>
+      <value>1.000000</value>
+      <value>1.000000</value>
+      <value>1.000000</value>
+      <value>1.000000</value>
+      <value>1.000000</value>
+      <value>1.000000</value>
+    </param>
+    <param name="EX_PROC_prescan_rfshim_rx_phases" display="off" type="float">
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+      <value>0.000000</value>
+    </param>
+    <param name="IF_info_seperator" display="off" type="integer">
+      <value>1634755923</value>
+    </param>
+    <param name="IF_str_total_scan_time" display="on" type="string">
+      <value>01:27.9</value>
+    </param>
+    <param name="IF_relative_SNR" display="on" type="float">
+      <value>100.000000</value>
+    </param>
+    <param name="IF_act_rep_time_echo_time" display="on" type="string">
+      <value>8200</value>
+    </param>
+    <param name="IF_act_SE_echo_time" display="on" type="string">
+      <value>85</value>
+    </param>
+    <param name="IF_meas_matrix_size" display="on" type="string">
+      <value>128 x 126</value>
+    </param>
+    <param name="IF_meas_voxel_size" display="on" type="string">
+      <value>2.00 / 2.03 / 2.00</value>
+    </param>
+    <param name="IF_recon_voxel_size" display="on" type="string">
+      <value>2.00 / 2.00 / 2.00</value>
+    </param>
+    <param name="IF_scan_percentage" display="on" type="float">
+      <value>98.529411</value>
+    </param>
+    <param name="IF_info_packages" display="on" type="integer">
+      <value>1</value>
+    </param>
+    <param name="IF_min_slice_gap" display="on" type="float">
+      <value>-0.000000</value>
+    </param>
+    <param name="IF_DIFF_deltas" display="on" type="string">
+      <value>41.6 / 30.0</value>
+    </param>
+    <param name="IF_epi_factor" display="on" type="integer">
+      <value>67</value>
+    </param>
+    <param name="IF_wf_shift_bw_per_pix_echo1" display="on" type="string">
+      <value>20.186 / 21.5</value>
+    </param>
+    <param name="IF_bw_per_pix_EPI_read_out" display="on" type="string">
+      <value>1750.1</value>
+    </param>
+    <param name="IF_min_rep_time_echo_time" display="on" type="string">
+      <value>8119</value>
+    </param>
+    <param name="IF_sar_info_head" display="on" type="string">
+      <value><![CDATA[<  30 %]]></value>
+    </param>
+    <param name="IF_sar_lvl_whole_body" display="on" type="string">
+      <value><![CDATA[< 0.1 W/kg / normal]]></value>
+    </param>
+    <param name="IF_B1_rms" display="on" type="string">
+      <value>1.28 uT</value>
+    </param>
+    <param name="IF_pns_info" display="on" type="string">
+      <value>79 % / normal</value>
+    </param>
+    <param name="IF_sound_pressure_level" display="on" type="float">
+      <value>16.998423</value>
+    </param>
+  </scan>
