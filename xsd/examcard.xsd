@@ -1,0 +1,787 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns:p="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.Acquisition.ScanSet/philips.pmsmr.acquisition.scanset_cs" xmlns:a1="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ExamCards.ECModel/philips.pmsmr.examcards.ecmodel_cs" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:a2="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ExamCards.ECModel/philips.pmsmr.examcards.ecmodel.datamodel_cs" xmlns:ph="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.Acquisition.AcqGlo/philips.pmsmr.acquisition.acqglo_cs" xmlns:a10="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ExamCards.Model/philips.pmsmr.examcards.model.scanset_cs" xmlns:phi="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ViewingProcessing.VolumeView/philips.pmsmr.viewingprocessing.volumeview.protocol_cs" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:a8="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.Platform.ECPlatform/philips.pmsmr.platform.ecplatform.datamodel_cs" xmlns:a5="http://schemas.microsoft.com/clr/ns/System.Collections" xmlns:phil="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ExamCards.DelayedRecon/philips.pmsmr.examcards.delayedrecon_cs" xmlns:a12="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ExamCards.Model/philips.pmsmr.examcards.model.scanproperties_cs" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:phili="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ViewingProcessing.DiffusionRegistration/philips.pmsmr.viewingprocessing.diffusionregistration.protocol_cs" xmlns:a3="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.Platform.ECPlatform/philips.pmsmr.platform.ecplatform_cs" xmlns:a11="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ViewingProcessing.Arithmetic/philips.pmsmr.viewingprocessing.arithmetic.protocol_cs">
+  <xs:import namespace="http://schemas.microsoft.com/clr/ns/System.Collections" schemaLocation="a5.xsd"/>
+  <xs:import namespace="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.Acquisition.AcqGlo/philips.pmsmr.acquisition.acqglo_cs" schemaLocation="ph.xsd"/>
+  <xs:import namespace="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.Acquisition.ScanSet/philips.pmsmr.acquisition.scanset_cs" schemaLocation="p.xsd"/>
+  <xs:import namespace="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ExamCards.DelayedRecon/philips.pmsmr.examcards.delayedrecon_cs" schemaLocation="phil.xsd"/>
+  <xs:import namespace="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ExamCards.ECModel/philips.pmsmr.examcards.ecmodel.datamodel_cs" schemaLocation="a2.xsd"/>
+  <xs:import namespace="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ExamCards.ECModel/philips.pmsmr.examcards.ecmodel_cs" schemaLocation="a1.xsd"/>
+  <xs:import namespace="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ExamCards.Model/philips.pmsmr.examcards.model.scanproperties_cs" schemaLocation="a12.xsd"/>
+  <xs:import namespace="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ExamCards.Model/philips.pmsmr.examcards.model.scanset_cs" schemaLocation="a10.xsd"/>
+  <xs:import namespace="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.Platform.ECPlatform/philips.pmsmr.platform.ecplatform.datamodel_cs" schemaLocation="a8.xsd"/>
+  <xs:import namespace="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.Platform.ECPlatform/philips.pmsmr.platform.ecplatform_cs" schemaLocation="a3.xsd"/>
+  <xs:import namespace="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ViewingProcessing.Arithmetic/philips.pmsmr.viewingprocessing.arithmetic.protocol_cs" schemaLocation="a11.xsd"/>
+  <xs:import namespace="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ViewingProcessing.DiffusionRegistration/philips.pmsmr.viewingprocessing.diffusionregistration.protocol_cs" schemaLocation="phili.xsd"/>
+  <xs:import namespace="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ViewingProcessing.VolumeView/philips.pmsmr.viewingprocessing.volumeview.protocol_cs" schemaLocation="phi.xsd"/>
+  <xs:import namespace="http://schemas.xmlsoap.org/soap/encoding/" schemaLocation="SOAP-ENC.xsd"/>
+  <xs:import namespace="http://schemas.xmlsoap.org/soap/envelope/" schemaLocation="SOAP-ENV.xsd"/>
+  <xs:import namespace="http://www.w3.org/2001/XMLSchema-instance" schemaLocation="xsi.xsd"/>
+  <xs:element name="instrumentList">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="data">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="patientOrientation">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute ref="xsi:type" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="dockingMode">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute ref="xsi:type" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="reviewRequired">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="namedGeometries">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="heartRate" type="xs:integer"/>
+  <xs:element name="autoFillInHeartRate" type="xs:boolean"/>
+  <xs:element name="mainSystemType">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute ref="xsi:type" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="configuration">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="version">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="alignOverlap" type="xs:integer"/>
+  <xs:element name="paediatric" type="xs:boolean"/>
+  <xs:element name="patientWeight" type="xs:integer"/>
+  <xs:element name="selectedCoils">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="tableUsage">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute name="id" use="required" type="xs:NCName"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="processingStepManagerData">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="geoLinkPropagation" type="xs:boolean"/>
+  <xs:element name="_items">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="_size" type="xs:integer"/>
+  <xs:element name="m_array">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="m_length" type="xs:integer"/>
+  <xs:element name="LoadFactor" type="xs:decimal"/>
+  <xs:element name="Version" type="xs:integer"/>
+  <xs:element name="Comparer">
+    <xs:complexType>
+      <xs:attribute ref="xsi:null" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HashCodeProvider">
+    <xs:complexType>
+      <xs:attribute ref="xsi:null" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HashSize" type="xs:integer"/>
+  <xs:element name="Keys">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Values">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="protocolData">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="stepType">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute ref="xsi:type" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="seriesType">
+    <xs:complexType>
+      <xs:attribute ref="xsi:null" use="required"/>
+      <xs:attribute ref="xsi:type" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="seriesName">
+    <xs:complexType mixed="true">
+      <xs:attribute name="id" type="xs:NCName"/>
+      <xs:attribute ref="xsi:null"/>
+      <xs:attribute ref="xsi:type"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="manualStart" type="xs:boolean"/>
+  <xs:element name="protocol">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="scanSet">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="scanStep">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="swVersion">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NMTOKEN">
+          <xs:attribute name="id" use="required" type="xs:NCName"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="modelVersion">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:decimal">
+          <xs:attribute name="id" use="required" type="xs:NCName"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="methodsVersion">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:decimal">
+          <xs:attribute name="id" use="required" type="xs:NCName"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="currentScanSet">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="anatomicalRegion">
+    <xs:complexType>
+      <xs:attribute name="href"/>
+      <xs:attribute ref="xsi:null"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AnatomyChanged">
+    <xs:complexType>
+      <xs:attribute ref="xsi:null" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AnatomicalRegionChanged">
+    <xs:complexType>
+      <xs:attribute ref="xsi:null" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LateralityChanged">
+    <xs:complexType>
+      <xs:attribute ref="xsi:null" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="approvedFeatures">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="approvedFeatureSpecificOptions">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="traSliceOrder" type="xs:integer"/>
+  <xs:element name="sagSliceOrder" type="xs:integer"/>
+  <xs:element name="corSliceOrder" type="xs:integer"/>
+  <xs:element name="traMirrorflipOrder" type="xs:integer"/>
+  <xs:element name="sagMirrorflipOrder" type="xs:integer"/>
+  <xs:element name="corMirrorflipOrder" type="xs:integer"/>
+  <xs:element name="isPreScan" type="xs:boolean"/>
+  <xs:element name="isFromPatientDB" type="xs:boolean"/>
+  <xs:element name="attainedSED" type="xs:integer"/>
+  <xs:element name="iaPlanStarted" type="xs:boolean"/>
+  <xs:element name="outputsToInputsRelations">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="inputsToOutputsRelations">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="dataBuffer">
+    <xs:complexType>
+      <xs:attribute name="href"/>
+      <xs:attribute ref="xsi:null"/>
+      <xs:attribute ref="xsi:type"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="htmlDataBuffer">
+    <xs:complexType>
+      <xs:attribute name="href"/>
+      <xs:attribute ref="xsi:null"/>
+      <xs:attribute ref="xsi:type"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="sortAttributes">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="sliceOrder">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute ref="xsi:type" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="insetPlanScan">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute ref="xsi:type" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="mrDisplayLayoutColumnCount" type="xs:integer"/>
+  <xs:element name="mrDisplayLayoutRowsCount" type="xs:integer"/>
+  <xs:element name="operation" type="xs:integer"/>
+  <xs:element name="weight" type="xs:integer"/>
+  <xs:element name="thresholdLinked">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute name="id" use="required" type="xs:NCName"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="cumulationTag" type="xs:integer"/>
+  <xs:element name="sourceDV">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:integer">
+          <xs:attribute name="id" use="required" type="xs:NCName"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="viewAreas">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="rangesLinked">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="imageType">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="thresholdValue" type="xs:integer"/>
+  <xs:element name="maskDefiningImage">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="thresholdStatus">
+    <xs:complexType mixed="true">
+      <xs:attribute name="href"/>
+      <xs:attribute name="id" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="rangeStart">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="rangeEnd">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="type">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute ref="xsi:type" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="firstSliceNumber" type="xs:integer"/>
+  <xs:element name="numberOfSlices" type="xs:integer"/>
+  <xs:element name="sliceDistance" type="xs:integer"/>
+  <xs:element name="sliceThickness" type="xs:integer"/>
+  <xs:element name="relativeThickness" type="xs:decimal"/>
+  <xs:element name="pixelSize">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="fovRL" type="xs:integer"/>
+  <xs:element name="fovAP" type="xs:integer"/>
+  <xs:element name="fovFH" type="xs:integer"/>
+  <xs:element name="offcentreRL" type="xs:decimal"/>
+  <xs:element name="offcentreAP" type="xs:decimal"/>
+  <xs:element name="offcentreFH" type="xs:decimal"/>
+  <xs:element name="angulationRL" type="xs:integer"/>
+  <xs:element name="angulationAP" type="xs:double"/>
+  <xs:element name="angulationFH" type="xs:double"/>
+  <xs:element name="viewAxis">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute ref="xsi:type" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="radialAxis">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute ref="xsi:type" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="radialAngle" type="xs:integer"/>
+  <xs:element name="stack">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="extrusions">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:base64Binary">
+          <xs:attribute name="id" use="required" type="xs:NCName"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="clipBoxTopLeft">
+    <xs:complexType>
+      <xs:attribute ref="xsi:null" use="required"/>
+      <xs:attribute ref="xsi:type" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="clipBoxBottomRight">
+    <xs:complexType>
+      <xs:attribute ref="xsi:null" use="required"/>
+      <xs:attribute ref="xsi:type" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="lightPosition">
+    <xs:complexType>
+      <xs:attribute ref="xsi:null" use="required"/>
+      <xs:attribute ref="xsi:type" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="lightIntensity" type="xs:integer"/>
+  <xs:element name="densityOpacityMap">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="colorOpacityMap">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="generateOrthogonals" type="xs:boolean"/>
+  <xs:element name="propagatePrecedingDynamics" type="xs:boolean"/>
+  <xs:element name="propagateFollowingDynamics" type="xs:boolean"/>
+  <xs:element name="dynamicsRangeSelected" type="xs:boolean"/>
+  <xs:element name="startDynamics" type="xs:integer"/>
+  <xs:element name="endDynamics" type="xs:integer"/>
+  <xs:element name="currentPoint">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="propagatePhasesAll" type="xs:boolean"/>
+  <xs:element name="propagateStationsAll" type="xs:boolean"/>
+  <xs:element name="propagateBValuesAll" type="xs:boolean"/>
+  <xs:element name="propagateDirectionsAll" type="xs:boolean"/>
+  <xs:element name="propagateImageTypesAll" type="xs:boolean"/>
+  <xs:element name="propagateEchoesAll" type="xs:boolean"/>
+  <xs:element name="propagateChemicalShiftsAll" type="xs:boolean"/>
+  <xs:element name="singleAxis" type="xs:boolean"/>
+  <xs:element name="renderMode">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute ref="xsi:type" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="reverseGenerationOrder" type="xs:boolean"/>
+  <xs:element name="fastReconstruction" type="xs:boolean"/>
+  <xs:element name="currentStation" type="xs:integer"/>
+  <xs:element name="volumeAngulations" type="xs:boolean"/>
+  <xs:element name="stations">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="item">
+    <xs:complexType mixed="true">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="packageName"/>
+        <xs:element ref="reviewType"/>
+      </xs:choice>
+      <xs:attribute name="href"/>
+      <xs:attribute name="id" type="xs:NCName"/>
+      <xs:attribute ref="xsi:type"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="packageName">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute name="id" use="required" type="xs:NCName"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="reviewType">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute name="id" use="required" type="xs:NCName"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="name">
+    <xs:complexType mixed="true">
+      <xs:attribute name="href"/>
+      <xs:attribute name="id" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="description">
+    <xs:complexType mixed="true">
+      <xs:attribute name="href"/>
+      <xs:attribute name="id" type="xs:NCName"/>
+      <xs:attribute ref="xsi:null"/>
+      <xs:attribute ref="xsi:type"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="anatomicRegion">
+    <xs:complexType mixed="true">
+      <xs:attribute name="href"/>
+      <xs:attribute name="id" type="xs:NCName"/>
+      <xs:attribute ref="xsi:null"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="anatomy">
+    <xs:complexType mixed="true">
+      <xs:attribute name="id" type="xs:NCName"/>
+      <xs:attribute ref="xsi:null"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="laterality">
+    <xs:complexType mixed="true">
+      <xs:attribute name="href"/>
+      <xs:attribute name="id" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="pushToWorkStation" type="xs:boolean"/>
+  <xs:complexType name="list">
+    <xs:sequence>
+      <xs:element ref="list"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="list">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="_version" type="xs:integer"/>
+  <xs:complexType name="executionSteps">
+    <xs:sequence>
+      <xs:element ref="executionSteps"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="executionSteps">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="windowCenter">
+    <xs:complexType mixed="true">
+      <xs:attribute ref="xsi:null"/>
+      <xs:attribute ref="xsi:type"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="windowWidth">
+    <xs:complexType mixed="true">
+      <xs:attribute ref="xsi:null"/>
+      <xs:attribute ref="xsi:type"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="singleScan">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="contrastInjectionProtocol">
+    <xs:complexType>
+      <xs:attribute name="href"/>
+      <xs:attribute ref="xsi:null"/>
+      <xs:attribute ref="xsi:type"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="contrast" type="xs:boolean"/>
+  <xs:element name="executionStepContrastUsed" type="xs:boolean"/>
+  <xs:element name="dynamicStep">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="viewingProcedure">
+    <xs:complexType>
+      <xs:attribute name="href"/>
+      <xs:attribute ref="xsi:null"/>
+      <xs:attribute ref="xsi:type"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="useViewingProcedure" type="xs:boolean"/>
+  <xs:element name="isCandidateForTransfer" type="xs:boolean"/>
+  <xs:element name="allowedMainSystemTypes">
+    <xs:complexType>
+      <xs:attribute name="href"/>
+      <xs:attribute ref="xsi:null"/>
+      <xs:attribute ref="xsi:type"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="allowedGradientChains">
+    <xs:complexType>
+      <xs:attribute name="href"/>
+      <xs:attribute ref="xsi:null"/>
+      <xs:attribute ref="xsi:type"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="swOptions">
+    <xs:complexType>
+      <xs:attribute name="href"/>
+      <xs:attribute ref="xsi:null"/>
+      <xs:attribute ref="xsi:type"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="hwOptions">
+    <xs:complexType>
+      <xs:attribute name="href"/>
+      <xs:attribute ref="xsi:null"/>
+      <xs:attribute ref="xsi:type"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="coilOptions">
+    <xs:complexType>
+      <xs:attribute name="href"/>
+      <xs:attribute ref="xsi:null"/>
+      <xs:attribute ref="xsi:type"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="delayMode">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute ref="xsi:type" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="delayDuration" type="xs:integer"/>
+  <xs:element name="dynamicCount" type="xs:integer"/>
+  <xs:element name="firstDynamic" type="xs:integer"/>
+  <xs:element name="smartGeoType">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute ref="xsi:type" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="vertebraRanges">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="scanProcedure">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="stationNumber" type="xs:integer"/>
+  <xs:element name="detail">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="geometryName">
+    <xs:complexType mixed="true">
+      <xs:attribute name="href"/>
+      <xs:attribute name="id" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="reuseStackSizes" type="xs:boolean"/>
+  <xs:element name="geoLinkID" type="xs:integer"/>
+  <xs:element name="scanProperties">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="agent">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute name="id" use="required" type="xs:NCName"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="routeOfAdministration">
+    <xs:complexType mixed="true">
+      <xs:attribute name="id" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="volume" type="xs:integer"/>
+  <xs:element name="concentration" type="xs:decimal"/>
+  <xs:element name="injectionStartDynamicNumber" type="xs:integer"/>
+  <xs:element name="parameterData">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="methodDescription">
+    <xs:complexType mixed="true">
+      <xs:attribute name="href"/>
+      <xs:attribute name="id" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="applicationMode" type="xs:NCName"/>
+  <xs:element name="linkToOriginalProtocol">
+    <xs:complexType>
+      <xs:attribute name="href"/>
+      <xs:attribute ref="xsi:null"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="lastModifiedTimeUtc">
+    <xs:complexType mixed="true">
+      <xs:attribute name="id" type="xs:NCName"/>
+      <xs:attribute ref="xsi:null"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="linkState" type="xs:boolean"/>
+  <xs:element name="NameChanged">
+    <xs:complexType>
+      <xs:attribute ref="xsi:null" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Modified">
+    <xs:complexType>
+      <xs:attribute ref="xsi:null" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Disposing">
+    <xs:complexType>
+      <xs:attribute ref="xsi:null" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="preloadPS" type="xs:boolean"/>
+  <xs:element name="saveDefaultPS" type="xs:boolean"/>
+  <xs:element name="actualOutputs" type="xs:integer"/>
+  <xs:element name="outputSeriesName">
+    <xs:complexType mixed="true">
+      <xs:attribute name="href"/>
+      <xs:attribute name="id" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="prefixes">
+    <xs:complexType>
+      <xs:attribute name="href"/>
+      <xs:attribute ref="xsi:null"/>
+      <xs:attribute ref="xsi:type"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="pause" type="xs:boolean"/>
+  <xs:element name="scanAlign" type="xs:boolean"/>
+  <xs:element name="scanAlignOverlap" type="xs:integer"/>
+  <xs:element name="smartScoutType">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NCName">
+          <xs:attribute ref="xsi:type" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="madeByPhilips" type="xs:boolean"/>
+  <xs:element name="suspendableDynamic" type="xs:boolean"/>
+  <xs:element name="requiredConfiguration">
+    <xs:complexType>
+      <xs:attribute name="href" use="required"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

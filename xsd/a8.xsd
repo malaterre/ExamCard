@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.Platform.ECPlatform/philips.pmsmr.platform.ecplatform.datamodel_cs" xmlns:p="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.Acquisition.ScanSet/philips.pmsmr.acquisition.scanset_cs" xmlns:a1="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ExamCards.ECModel/philips.pmsmr.examcards.ecmodel_cs" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:a2="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ExamCards.ECModel/philips.pmsmr.examcards.ecmodel.datamodel_cs" xmlns:ph="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.Acquisition.AcqGlo/philips.pmsmr.acquisition.acqglo_cs" xmlns:a10="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ExamCards.Model/philips.pmsmr.examcards.model.scanset_cs" xmlns:phi="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ViewingProcessing.VolumeView/philips.pmsmr.viewingprocessing.volumeview.protocol_cs" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:a8="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.Platform.ECPlatform/philips.pmsmr.platform.ecplatform.datamodel_cs" xmlns:a5="http://schemas.microsoft.com/clr/ns/System.Collections" xmlns:phil="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ExamCards.DelayedRecon/philips.pmsmr.examcards.delayedrecon_cs" xmlns:a12="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ExamCards.Model/philips.pmsmr.examcards.model.scanproperties_cs" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:phili="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ViewingProcessing.DiffusionRegistration/philips.pmsmr.viewingprocessing.diffusionregistration.protocol_cs" xmlns:a3="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.Platform.ECPlatform/philips.pmsmr.platform.ecplatform_cs" xmlns:a11="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ViewingProcessing.Arithmetic/philips.pmsmr.viewingprocessing.arithmetic.protocol_cs">
+  <xs:import schemaLocation="examcard.xsd"/>
+  <xs:import namespace="http://schemas.microsoft.com/clr/ns/System.Collections" schemaLocation="a5.xsd"/>
+  <xs:import namespace="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.Acquisition.AcqGlo/philips.pmsmr.acquisition.acqglo_cs" schemaLocation="ph.xsd"/>
+  <xs:import namespace="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.Acquisition.ScanSet/philips.pmsmr.acquisition.scanset_cs" schemaLocation="p.xsd"/>
+  <xs:import namespace="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ExamCards.DelayedRecon/philips.pmsmr.examcards.delayedrecon_cs" schemaLocation="phil.xsd"/>
+  <xs:import namespace="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ExamCards.ECModel/philips.pmsmr.examcards.ecmodel.datamodel_cs" schemaLocation="a2.xsd"/>
+  <xs:import namespace="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ExamCards.ECModel/philips.pmsmr.examcards.ecmodel_cs" schemaLocation="a1.xsd"/>
+  <xs:import namespace="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ExamCards.Model/philips.pmsmr.examcards.model.scanproperties_cs" schemaLocation="a12.xsd"/>
+  <xs:import namespace="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ExamCards.Model/philips.pmsmr.examcards.model.scanset_cs" schemaLocation="a10.xsd"/>
+  <xs:import namespace="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.Platform.ECPlatform/philips.pmsmr.platform.ecplatform_cs" schemaLocation="a3.xsd"/>
+  <xs:import namespace="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ViewingProcessing.Arithmetic/philips.pmsmr.viewingprocessing.arithmetic.protocol_cs" schemaLocation="a11.xsd"/>
+  <xs:import namespace="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ViewingProcessing.DiffusionRegistration/philips.pmsmr.viewingprocessing.diffusionregistration.protocol_cs" schemaLocation="phili.xsd"/>
+  <xs:import namespace="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ViewingProcessing.VolumeView/philips.pmsmr.viewingprocessing.volumeview.protocol_cs" schemaLocation="phi.xsd"/>
+  <xs:import namespace="http://schemas.xmlsoap.org/soap/encoding/" schemaLocation="SOAP-ENC.xsd"/>
+  <xs:import namespace="http://schemas.xmlsoap.org/soap/envelope/" schemaLocation="SOAP-ENV.xsd"/>
+  <xs:import namespace="http://www.w3.org/2001/XMLSchema-instance" schemaLocation="xsi.xsd"/>
+  <xs:element name="RelationshipManagerData">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="outputsToInputsRelations"/>
+        <xs:element ref="inputsToOutputsRelations"/>
+      </xs:sequence>
+      <xs:attribute name="id" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://schemas.xmlsoap.org/soap/envelope/" xmlns:p="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.Acquisition.ScanSet/philips.pmsmr.acquisition.scanset_cs" xmlns:a1="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ExamCards.ECModel/philips.pmsmr.examcards.ecmodel_cs" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:a2="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ExamCards.ECModel/philips.pmsmr.examcards.ecmodel.datamodel_cs" xmlns:ph="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.Acquisition.AcqGlo/philips.pmsmr.acquisition.acqglo_cs" xmlns:a10="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ExamCards.Model/philips.pmsmr.examcards.model.scanset_cs" xmlns:phi="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ViewingProcessing.VolumeView/philips.pmsmr.viewingprocessing.volumeview.protocol_cs" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:a8="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.Platform.ECPlatform/philips.pmsmr.platform.ecplatform.datamodel_cs" xmlns:a5="http://schemas.microsoft.com/clr/ns/System.Collections" xmlns:phil="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ExamCards.DelayedRecon/philips.pmsmr.examcards.delayedrecon_cs" xmlns:a12="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ExamCards.Model/philips.pmsmr.examcards.model.scanproperties_cs" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:phili="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ViewingProcessing.DiffusionRegistration/philips.pmsmr.viewingprocessing.diffusionregistration.protocol_cs" xmlns:a3="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.Platform.ECPlatform/philips.pmsmr.platform.ecplatform_cs" xmlns:a11="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ViewingProcessing.Arithmetic/philips.pmsmr.viewingprocessing.arithmetic.protocol_cs">
+  <xs:import schemaLocation="examcard.xsd"/>
+  <xs:import namespace="http://schemas.microsoft.com/clr/ns/System.Collections" schemaLocation="a5.xsd"/>
+  <xs:import namespace="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.Acquisition.AcqGlo/philips.pmsmr.acquisition.acqglo_cs" schemaLocation="ph.xsd"/>
+  <xs:import namespace="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.Acquisition.ScanSet/philips.pmsmr.acquisition.scanset_cs" schemaLocation="p.xsd"/>
+  <xs:import namespace="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ExamCards.DelayedRecon/philips.pmsmr.examcards.delayedrecon_cs" schemaLocation="phil.xsd"/>
+  <xs:import namespace="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ExamCards.ECModel/philips.pmsmr.examcards.ecmodel.datamodel_cs" schemaLocation="a2.xsd"/>
+  <xs:import namespace="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ExamCards.ECModel/philips.pmsmr.examcards.ecmodel_cs" schemaLocation="a1.xsd"/>
+  <xs:import namespace="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ExamCards.Model/philips.pmsmr.examcards.model.scanproperties_cs" schemaLocation="a12.xsd"/>
+  <xs:import namespace="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ExamCards.Model/philips.pmsmr.examcards.model.scanset_cs" schemaLocation="a10.xsd"/>
+  <xs:import namespace="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.Platform.ECPlatform/philips.pmsmr.platform.ecplatform.datamodel_cs" schemaLocation="a8.xsd"/>
+  <xs:import namespace="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.Platform.ECPlatform/philips.pmsmr.platform.ecplatform_cs" schemaLocation="a3.xsd"/>
+  <xs:import namespace="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ViewingProcessing.Arithmetic/philips.pmsmr.viewingprocessing.arithmetic.protocol_cs" schemaLocation="a11.xsd"/>
+  <xs:import namespace="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ViewingProcessing.DiffusionRegistration/philips.pmsmr.viewingprocessing.diffusionregistration.protocol_cs" schemaLocation="phili.xsd"/>
+  <xs:import namespace="http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ViewingProcessing.VolumeView/philips.pmsmr.viewingprocessing.volumeview.protocol_cs" schemaLocation="phi.xsd"/>
+  <xs:import namespace="http://schemas.xmlsoap.org/soap/encoding/" schemaLocation="SOAP-ENC.xsd"/>
+  <xs:import namespace="http://www.w3.org/2001/XMLSchema-instance" schemaLocation="xsi.xsd"/>
+  <xs:element name="Envelope">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="SOAP-ENV:Body"/>
+      </xs:sequence>
+      <xs:attribute name="encodingStyle" use="required" form="qualified" type="xs:anyURI"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Body">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="a1:ExamCard"/>
+        <xs:element ref="a1:ECInstrumentList"/>
+        <xs:element ref="a2:ExamCardData"/>
+        <xs:choice maxOccurs="unbounded">
+          <xs:element ref="a5:ArrayList"/>
+          <xs:element ref="a5:BitArray"/>
+          <xs:element ref="a5:Hashtable"/>
+          <xs:element ref="ph:DynamicStepProperties"/>
+          <xs:element ref="ph:ScanProcedure"/>
+          <xs:element ref="ph:ScanProcedureConfig"/>
+          <xs:element ref="ph:ScanProperties"/>
+          <xs:element ref="p:ContrastInjectionProtocol"/>
+          <xs:element ref="p:ExecutionStep"/>
+          <xs:element ref="p:ExecutionStepList"/>
+          <xs:element ref="p:ScanSet"/>
+          <xs:element ref="p:SingleScan"/>
+          <xs:element ref="phil:ReconStepProtocol"/>
+          <xs:element ref="a2:OutputDescriptorData"/>
+          <xs:element ref="a2:ProcessingStepData"/>
+          <xs:element ref="a1:ECInstrument"/>
+          <xs:element ref="a1:ExamCardConfig"/>
+          <xs:element ref="a1:ExamCardsVersion"/>
+          <xs:element ref="a1:ScanStep"/>
+          <xs:element ref="a12:DynamicStepProperties"/>
+          <xs:element ref="a12:ScanProcedure"/>
+          <xs:element ref="a12:ScanProcedureConfig"/>
+          <xs:element ref="a12:ScanProperties"/>
+          <xs:element ref="a10:ContrastInjectionProtocol"/>
+          <xs:element ref="a10:ExecutionStep"/>
+          <xs:element ref="a10:ExecutionStepList"/>
+          <xs:element ref="a10:ScanSet"/>
+          <xs:element ref="a10:SingleScan"/>
+          <xs:element ref="a8:RelationshipManagerData"/>
+          <xs:element ref="a3:HtmlItemDescription"/>
+          <xs:element ref="a3:ViewingProcedure"/>
+          <xs:element ref="a11:ImageAlgebraPackageProtocol"/>
+          <xs:element ref="a11:ViewArea"/>
+          <xs:element ref="phili:DiffusionRegistrationPackageProtocol"/>
+          <xs:element ref="phi:ProtocolStackInfo"/>
+          <xs:element ref="phi:ProtocolStation"/>
+          <xs:element ref="phi:VolumeProtocol"/>
+          <xs:element ref="SOAP-ENC:Array"/>
+        </xs:choice>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
