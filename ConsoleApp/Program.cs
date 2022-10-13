@@ -17,32 +17,19 @@ using System.Xml.Serialization;
 
 namespace ConsoleApp
 {
-    /*
+    public enum E { V }
     [Serializable]
-    public class Person : System.Runtime.Serialization.ISerializable
+    public class Person /* : System.Runtime.Serialization.ISerializable */
     {
-        public string FirstName;
-        public string LastName;
-        public string _Address;
-        public string _ZIPCode;
+        public E my_enum;
+        public bool my_bool;
 
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AssemblyName = "ConsoleApp";
-            System.Reflection.MemberInfo[] members = this.GetType().GetMembers();
-            foreach (var member in members)
-            {
-                if (member.MemberType == System.Reflection.MemberTypes.Field)
-                {
-                    System.Reflection.FieldInfo field = ((System.Reflection.FieldInfo)member);
-                    string name = member.Name;
-                    object value = field.GetValue(this);
-                    info.AddValue(name, value);
-                }
-            }
-
+            info.AddValue("my_enum", my_enum);
+            info.AddValue("my_bool", my_bool);
         }
-    }*/
+    }
     sealed public class ProgramBinder : SerializationBinder
     {
         override public void BindToName(Type serializedType, out string assemblyName, out string typeName)
@@ -82,18 +69,18 @@ namespace ConsoleApp
 
                 sopCar.Serialize(stmCar, myGroup);
             }*/
-            /*{
+            {
                 Person p = new Person();
-                //ExamCard p = new ExamCard();
-                string path = "myfile.soap";
-                using (System.IO.FileStream fs = new System.IO.FileStream(path, System.IO.FileMode.OpenOrCreate, System.IO.FileAccess.Write))
+                using (FileStream fs = new FileStream("myfile.soap", FileMode.Create))
                 {
-                    System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-                    f = new System.Runtime.Serialization.Formatters.Soap.SoapFormatter();
+                    SoapFormatter f = new SoapFormatter();
+                    f.AssemblyFormat = FormatterAssemblyStyle.Simple;
+                    //f.TypeFormat = FormatterTypeStyle.TypesAlways;
+                    //f.TypeFormat = FormatterTypeStyle.TypesWhenNeeded;
                     f.Serialize(fs, p);
                     fs.Close();
                 }
-            }*/
+            }
             /*
             {
                 ExamCard examCard = new ExamCard();
@@ -119,7 +106,8 @@ namespace ConsoleApp
                 FileStream fileStream = new FileStream("roundtrip.ExamCard", FileMode.Create);
                 SoapFormatter soapFormatter = new SoapFormatter();
                 soapFormatter.AssemblyFormat = FormatterAssemblyStyle.Simple; // Get rid of version and al.
-                soapFormatter.Binder = new ProgramBinder();
+                soapFormatter.TypeFormat = FormatterTypeStyle.TypesWhenNeeded; // full resolution for member enum
+                //soapFormatter.Binder = new ProgramBinder();
                 soapFormatter.Serialize(fileStream, examCard);
             }
         }

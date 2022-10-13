@@ -22,12 +22,18 @@ namespace Philips.PmsMR.Acquisition.AcqGlo
         public string Modified;
         public string Disposing;
     }
-    [Serializable]
-    public class ScanProperties
+    //[Serializable]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = true)]
+    public partial class ScanProperties
     {
         public bool pause;
         public bool scanAlign;
         public int scanAlignOverlap;
+        //[System.Runtime.Remoting.Metadata.SoapType(XmlNamespace = "http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ExamCards.ECModel/philips.pmsmr.examcards.ecmodel_cs")]
         public SmartPlanType smartScoutType;
         public bool madeByPhilips;
         public bool suspendableDynamic;

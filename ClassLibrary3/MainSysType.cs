@@ -8,7 +8,9 @@ namespace Philips.PmsMR.Platform.Aswglo
     {
         AWASW_MST_T30
     }
-    [Serializable]
+    //[Serializable]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
     public enum SmartPlanType
     {
         AWPLAN_SMARTPLAN_TYPE_NONE

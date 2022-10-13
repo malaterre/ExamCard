@@ -39,9 +39,9 @@ namespace Philips.PmsMR.ExamCards.ECModel
         // versioning:
         private int memberCount;
 
-        /*public ExamCard()
+        public ExamCard()
         {
-        }*/
+        }
 
         protected ExamCard(SerializationInfo info, StreamingContext context)
         {
