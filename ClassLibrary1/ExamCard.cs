@@ -9,9 +9,9 @@ using System.Runtime.Serialization;
 namespace Philips.PmsMR.ExamCards.ECModel
 {
     [System.Serializable]
-    [System.Runtime.Remoting.Metadata.SoapType(XmlNamespace = "http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ExamCards.ECModel/philips.pmsmr.examcards.ecmodel_cs")]
+    //[System.Runtime.Remoting.Metadata.SoapType(XmlNamespace = "http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ExamCards.ECModel/philips.pmsmr.examcards.ecmodel_cs")]
     //[System.Xml.Serialization.XmlRoot(Namespace = "foobar", IsNullable = false)]
-    public class ExamCard  /*: ISerializable */
+    public class ExamCard  : ISerializable 
     {
         public string name;
         public ECInstrumentList instrumentList;
@@ -35,13 +35,13 @@ namespace Philips.PmsMR.ExamCards.ECModel
         public object patientWeight;
         public object selectedCoils;*/
 
-        /*
+        
         // versioning:
         private int memberCount;
 
-        public ExamCard()
+        /*public ExamCard()
         {
-        }
+        }*/
 
         protected ExamCard(SerializationInfo info, StreamingContext context)
         {
@@ -80,6 +80,8 @@ namespace Philips.PmsMR.ExamCards.ECModel
         }
         void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
         {
+            var tmp = info.AssemblyName.Split(',');
+            //info.AssemblyName = tmp[0]; // "philips.pmsmr.examcards.ecmodel_cs"; // to get rid of Version
             Type type = this.GetType();
             {
                 MemberInfo[] members = type.GetMembers();
@@ -99,7 +101,7 @@ namespace Philips.PmsMR.ExamCards.ECModel
                 }
             }
 
-        }*/
+        }
     }
     [Serializable]
     public class ECInstrumentList
