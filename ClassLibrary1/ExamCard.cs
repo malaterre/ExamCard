@@ -1,7 +1,9 @@
-﻿using Philips.PmsMR.Platform.Aswglo;
+﻿using Philips.PmsMR.Acquisition.ScanSet;
+using Philips.PmsMR.Platform.Aswglo;
 using Philips.PmsMR.Platform.ECPlatform;
 using Philips.PmsMR.Platform.ScannerContext;
 using System;
+using System.Collections;
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.Serialization;
@@ -106,7 +108,7 @@ namespace Philips.PmsMR.ExamCards.ECModel
     [Serializable]
     public class ECInstrumentList
     {
-        public object list;
+        public ArrayList list;
     }
     [Serializable]
     public class ExamCardConfig
@@ -128,7 +130,7 @@ namespace Philips.PmsMR.ExamCards.ECModel
     public class ECInstrument
     {
         // old version:
-        public object scanStep;
+        public ScanStep scanStep;
         // new version:
         /*public object scanSet;*/
     }
@@ -136,7 +138,7 @@ namespace Philips.PmsMR.ExamCards.ECModel
     public class ScanStep
     {
         public string name;
-        public object currentScanSet;
+        public ScanSet currentScanSet;
 
     }
 

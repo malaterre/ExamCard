@@ -61,6 +61,10 @@
       <Project>{C27747C1-8B6D-4131-8DF8-2C4C75137B49}</Project>
       <Name>ClassLibrary5</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ClassLibrary7\ClassLibrary7.csproj">
+      <Project>{D566074C-B286-431A-92BF-4EC8017D0B18}</Project>
+      <Name>ClassLibrary7</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
