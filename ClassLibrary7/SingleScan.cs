@@ -47,6 +47,9 @@ namespace Philips.PmsMR.Acquisition.ScanSet
         public int geoLinkID;
         public ScanProperties scanProperties;
         public bool useViewingProcedure;
+
+        public override string ToString() { return name; }
+        public SingleScan() { }
         protected SingleScan(SerializationInfo info, StreamingContext context)
         {
             foreach (SerializationEntry entry in info)

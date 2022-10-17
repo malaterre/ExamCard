@@ -5,6 +5,7 @@ using Philips.PmsMR.Platform.Aswglo;
 using Philips.PmsMR.Platform.ECPlatform;
 using Philips.PmsMR.Platform.ScannerContext;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,6 +13,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters;
 using System.Runtime.Serialization.Formatters.Soap;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
@@ -21,14 +23,23 @@ namespace ConsoleApp
     [Serializable]
     public class Person /* : System.Runtime.Serialization.ISerializable */
     {
-        public E my_enum;
+        public E my_enum; // field
         public bool my_bool;
-
+        [NonSerialized]
+        private long propCode;
+        //[XmlInclude]
+        //[SerializableAttribute]
+        public long PropertyCode // property
+        {
+            get { return propCode; }
+            set { propCode = value; }
+        }
+        /*
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("my_enum", my_enum);
             info.AddValue("my_bool", my_bool);
-        }
+        }*/
     }
     sealed public class ProgramBinder : SerializationBinder
     {
@@ -74,9 +85,11 @@ namespace ConsoleApp
                 using (FileStream fs = new FileStream("myfile.soap", FileMode.Create))
                 {
                     SoapFormatter f = new SoapFormatter();
-                    f.AssemblyFormat = FormatterAssemblyStyle.Simple;
+                    //f.AssemblyFormat = FormatterAssemblyStyle.Simple;
                     //f.TypeFormat = FormatterTypeStyle.TypesAlways;
                     //f.TypeFormat = FormatterTypeStyle.TypesWhenNeeded;
+                    f.FilterLevel = TypeFilterLevel.Full;
+                    f.FilterLevel = TypeFilterLevel.Low;
                     f.Serialize(fs, p);
                     fs.Close();
                 }
@@ -93,6 +106,14 @@ namespace ConsoleApp
                 soapFormatter.Serialize(fileStream, examCard);
             }*/
             {
+                Hashtable t = new Hashtable();
+                OutputDescriptorData k = new OutputDescriptorData();
+                SingleScan s = new SingleScan();
+                ArrayList l = new ArrayList();
+                l.Add(s);
+                t.Add(k, l);
+            }
+            {
                 //string filename = "data/PHANTOM_QT1_SLU_20151230.ExamCard";
                 string filename = "data/SR_ADULT_007.ExamCard";
                 //string filename = "data/SR_ADULT_018.ExamCard";
@@ -102,6 +123,14 @@ namespace ConsoleApp
                 SoapFormatter sopCar = new SoapFormatter();
                 //sopCar.Binder = new ProgramBinder();
                 ExamCard examCard = (ExamCard)sopCar.Deserialize(stmCar);
+
+                if(true)
+                {
+                    var options = new JsonSerializerOptions { WriteIndented = true, IncludeFields = true };
+                    string jsonString = JsonSerializer.Serialize(examCard, options);
+                    File.WriteAllText("roundtrip" + ".json", jsonString);
+                }
+
 
                 FileStream fileStream = new FileStream("roundtrip.ExamCard", FileMode.Create);
                 SoapFormatter soapFormatter = new SoapFormatter();
@@ -113,3 +142,4 @@ namespace ConsoleApp
         }
     }
 }
+
