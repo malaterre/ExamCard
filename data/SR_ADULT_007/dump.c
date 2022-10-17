@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 struct header {
-  uint32_t v1;
+  uint32_t values_offset; //  offset to values (right after header)
   uint32_t nints;
   uint32_t v4;
   uint32_t nfloats;
@@ -24,8 +24,10 @@ struct PACK param {
 };
 
 static void print_header(struct header *h) {
-  printf("%u %u %u %u %u %u %u %u\n", h->v1, h->nints, h->v4, h->nfloats, h->v6,
-         h->nstrings, h->v8, h->numparams);
+  printf("0x%x 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x\n", h->values_offset,
+         h->nints, h->v4, h->nfloats, h->v6, h->nstrings, h->v8, h->numparams);
+  printf("%u %u %u %u %u %u %u %u\n", h->values_offset, h->nints, h->v4,
+         h->nfloats, h->v6, h->nstrings, h->v8, h->numparams);
 }
 
 enum ParamType {
@@ -43,7 +45,7 @@ static const char *ParamTypes[] = {
     "enum",    // 4
 };
 
-static void print_param(struct param *p) {
+static void print_param(struct param *p, long beg, long end) {
   assert(p->for_disp == 0x0 || p->for_disp == 0x1);
   assert(p->type == 0x0 || p->type == 0x1 || p->type == 0x2 || p->type == 0x4);
   const char *type_str = ParamTypes[p->type];
@@ -59,8 +61,9 @@ static void print_param(struct param *p) {
   assert(name[2] == '_' || name[3] == '_');
   assert(p->eoffset < 0xffff); // FIXME
   assert(p->offset < 0xffff);  // FIXME
-  printf("%-32s\tdisp:%u\ttype:%s\tsize:%u\toffset1:0x%04x\toffset2:0x%04x\n",
-         name, p->for_disp, type_str, p->dim, p->eoffset, p->offset);
+  printf("%-32s\tdisp:%u\ttype:%s\tsize:%u\toffset1:0x%04x\toffset2:0x%"
+         "04x\t\tbeg:0x%04x\tend:0x%04x\n",
+         name, p->for_disp, type_str, p->dim, p->eoffset, p->offset, beg, end);
 }
 
 int main(int argc, char *argv[]) {
@@ -76,8 +79,10 @@ int main(int argc, char *argv[]) {
   for (int p = 0; p < header.numparams; ++p) {
     struct param param;
     assert(sizeof param == 50);
+    long beg = ftell(stream);
     ret = fread(&param, sizeof param, 1, stream);
-    print_param(&param);
+    long end = ftell(stream);
+    print_param(&param, beg, end);
   }
   printf("\n0x%04x\n", ftell(stream));
 
