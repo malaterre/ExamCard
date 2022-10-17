@@ -8,3 +8,6 @@ https://social.msdn.microsoft.com/Forums/en-US/f2ffd823-241f-4ef0-810a-dc7aea650
 http://www.functionx.com/csharp2/serialization/soap.htm
 
 https://www.codeproject.com/Articles/11079/NET-XML-and-SOAP-Serialization-Samples-Tips
+
+
+https://stackoverflow.com/questions/56725265/how-can-i-use-protocol-soap-when-is-not-including-in-formatters-namespace
