@@ -19,8 +19,8 @@ struct PACK param {
   uint8_t for_disp;
   uint32_t type;
   uint32_t dim;
-  uint32_t v4;
-  uint32_t offset;
+  uint32_t eoffset; // enum offset
+  uint32_t offset;  // actual value offset
 };
 
 static void print_header(struct header *h) {
@@ -36,17 +36,31 @@ enum ParamType {
 };
 
 static const char *ParamTypes[] = {
-    "float", "integer", "string",
-    NULL, // 3
-    "enum",
+    "float",   // 0
+    "integer", // 1
+    "string",  // 2
+    NULL,      // 3
+    "enum",    // 4
 };
 
 static void print_param(struct param *p) {
   assert(p->for_disp == 0x0 || p->for_disp == 0x1);
   assert(p->type == 0x0 || p->type == 0x1 || p->type == 0x2 || p->type == 0x4);
   const char *type_str = ParamTypes[p->type];
+  assert(type_str);
+  switch (p->type) {
+  case Enum:
+    assert(p->eoffset != 0x0);
+    break;
+  default:
+    assert(p->eoffset == 0x0);
+  }
+  const char *name = p->name;
+  assert(name[2] == '_' || name[3] == '_');
+  assert(p->eoffset < 0xffff); // FIXME
+  assert(p->offset < 0xffff);  // FIXME
   printf("%-32s\tdisp:%u\ttype:%s\tsize:%u\toffset1:0x%04x\toffset2:0x%04x\n",
-         p->name, p->for_disp, type_str, p->dim, p->v4, p->offset);
+         name, p->for_disp, type_str, p->dim, p->eoffset, p->offset);
 }
 
 int main(int argc, char *argv[]) {
@@ -65,6 +79,8 @@ int main(int argc, char *argv[]) {
     ret = fread(&param, sizeof param, 1, stream);
     print_param(&param);
   }
+  printf("\n0x%04x\n", ftell(stream));
+
   fclose(stream);
   return 0;
 }
