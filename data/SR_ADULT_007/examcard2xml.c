@@ -8,6 +8,208 @@
 #include <libxml/xpath.h>
 #include <libxml/xpathInternals.h>
 
+#if 0
+/**
+ * xmlBase64Decode:
+ * @in:  the input buffer
+ * @inlen:  the size of the input (in), the size read from it (out)
+ * @to:  the output buffer
+ * @tolen:  the size of the output (in), the size written to (out)
+ *
+ * Base64 decoder, reads from @in and save in @to
+ * TODO: tell jody when this is actually exported
+ *
+ * Returns 0 if all the input was consumer, 1 if the Base64 end was reached,
+ *         2 if there wasn't enough space on the output or -1 in case of error.
+ */
+static int
+xmlBase64Decode(const unsigned char *in, unsigned long *inlen,
+                unsigned char *to, unsigned long *tolen)
+{
+    unsigned long incur;        /* current index in in[] */
+
+    unsigned long inblk;        /* last block index in in[] */
+
+    unsigned long outcur;       /* current index in out[] */
+
+    unsigned long inmax;        /* size of in[] */
+
+    unsigned long outmax;       /* size of out[] */
+
+    unsigned char cur;          /* the current value read from in[] */
+
+    unsigned char intmp[4], outtmp[4];  /* temporary buffers for the convert */
+
+    int nbintmp;                /* number of byte in intmp[] */
+
+    int is_ignore;              /* cur should be ignored */
+
+    int is_end = 0;             /* the end of the base64 was found */
+
+    int retval = 1;
+
+    int i;
+
+    if ((in == NULL) || (inlen == NULL) || (to == NULL) || (tolen == NULL))
+        return (-1);
+
+    incur = 0;
+    inblk = 0;
+    outcur = 0;
+    inmax = *inlen;
+    outmax = *tolen;
+    nbintmp = 0;
+
+    while (1) {
+        if (incur >= inmax)
+            break;
+        cur = in[incur++];
+        is_ignore = 0;
+        if ((cur >= 'A') && (cur <= 'Z'))
+            cur = cur - 'A';
+        else if ((cur >= 'a') && (cur <= 'z'))
+            cur = cur - 'a' + 26;
+        else if ((cur >= '0') && (cur <= '9'))
+            cur = cur - '0' + 52;
+        else if (cur == '+')
+            cur = 62;
+        else if (cur == '/')
+            cur = 63;
+        else if (cur == '.')
+            cur = 0;
+        else if (cur == '=')    /*no op , end of the base64 stream */
+            is_end = 1;
+        else {
+            is_ignore = 1;
+            if (nbintmp == 0)
+                inblk = incur;
+        }
+
+        if (!is_ignore) {
+            int nbouttmp = 3;
+
+            int is_break = 0;
+
+            if (is_end) {
+                if (nbintmp == 0)
+                    break;
+                if ((nbintmp == 1) || (nbintmp == 2))
+                    nbouttmp = 1;
+                else
+                    nbouttmp = 2;
+                nbintmp = 3;
+                is_break = 1;
+            }
+            intmp[nbintmp++] = cur;
+            /*
+             * if intmp is full, push the 4byte sequence as a 3 byte
+             * sequence out
+             */
+            if (nbintmp == 4) {
+                nbintmp = 0;
+                outtmp[0] = (intmp[0] << 2) | ((intmp[1] & 0x30) >> 4);
+                outtmp[1] =
+                    ((intmp[1] & 0x0F) << 4) | ((intmp[2] & 0x3C) >> 2);
+                outtmp[2] = ((intmp[2] & 0x03) << 6) | (intmp[3] & 0x3F);
+                if (outcur + 3 >= outmax) {
+                    retval = 2;
+                    break;
+                }
+
+                for (i = 0; i < nbouttmp; i++)
+                    to[outcur++] = outtmp[i];
+                inblk = incur;
+            }
+
+            if (is_break) {
+                retval = 0;
+                break;
+            }
+        }
+    }
+
+    *tolen = outcur;
+    *inlen = inblk;
+    return (retval);
+}
+#endif
+
+size_t b64_decoded_size(const char *in) {
+  size_t len;
+  size_t ret;
+  size_t i;
+
+  if (in == NULL)
+    return 0;
+
+  len = strlen(in);
+  ret = len / 4 * 3;
+
+  for (i = len; i-- > 0;) {
+    if (in[i] == '=') {
+      ret--;
+    } else {
+      break;
+    }
+  }
+
+  return ret;
+}
+
+int b64invs[] = {62, -1, -1, -1, 63, 52, 53, 54, 55, 56, 57, 58, 59, 60,
+                 61, -1, -1, -1, -1, -1, -1, -1, 0,  1,  2,  3,  4,  5,
+                 6,  7,  8,  9,  10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+                 20, 21, 22, 23, 24, 25, -1, -1, -1, -1, -1, -1, 26, 27,
+                 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41,
+                 42, 43, 44, 45, 46, 47, 48, 49, 50, 51};
+
+int b64_isvalidchar(char c) {
+  if (c >= '0' && c <= '9')
+    return 1;
+  if (c >= 'A' && c <= 'Z')
+    return 1;
+  if (c >= 'a' && c <= 'z')
+    return 1;
+  if (c == '+' || c == '/' || c == '=')
+    return 1;
+  return 0;
+}
+
+int b64_decode(const char *in, unsigned char *out, size_t outlen) {
+  size_t len;
+  size_t i;
+  size_t j;
+  int v;
+
+  if (in == NULL || out == NULL)
+    return 0;
+
+  len = strlen(in);
+  if (outlen < b64_decoded_size(in) || len % 4 != 0)
+    return 0;
+
+  for (i = 0; i < len; i++) {
+    if (!b64_isvalidchar(in[i])) {
+      return 0;
+    }
+  }
+
+  for (i = 0, j = 0; i < len; i += 4, j += 3) {
+    v = b64invs[in[i] - 43];
+    v = (v << 6) | b64invs[in[i + 1] - 43];
+    v = in[i + 2] == '=' ? v << 6 : (v << 6) | b64invs[in[i + 2] - 43];
+    v = in[i + 3] == '=' ? v << 6 : (v << 6) | b64invs[in[i + 3] - 43];
+
+    out[j] = (v >> 16) & 0xFF;
+    if (in[i + 2] != '=')
+      out[j + 1] = (v >> 8) & 0xFF;
+    if (in[i + 3] != '=')
+      out[j + 2] = v & 0xFF;
+  }
+
+  return 1;
+}
+
 #if defined(LIBXML_XPATH_ENABLED) && defined(LIBXML_SAX1_ENABLED)
 
 static void usage(const char *name);
@@ -198,6 +400,69 @@ int register_namespaces(xmlXPathContextPtr xpathCtx, const xmlChar *nsList) {
   return (0);
 }
 
+void get_xpath_nodes(xmlChar *name, xmlNodeSetPtr nodes, const char *href_id) {
+  xmlNodePtr cur;
+  int size;
+  int i;
+
+  size = (nodes) ? nodes->nodeNr : 0;
+  FILE *output = stdout;
+  char buffer[512];
+  sprintf(buffer, "%s.raw", name);
+  FILE *stream = fopen(buffer, "wb");
+
+  fprintf(output, "Result (%d nodes):\n", size);
+  for (i = 0; i < size; ++i) {
+    assert(nodes->nodeTab[i]);
+    assert(nodes->nodeTab[i]->type == XML_ELEMENT_NODE);
+    cur = nodes->nodeTab[i];
+    assert(cur->ns);
+    if (cur->ns) {
+      //        fprintf(output, "= element node \"%s:%s\"\n", cur->ns->href,
+      //        cur->name);
+      xmlChar *prop = xmlGetProp(cur, "id");
+      if (strcmp(prop, href_id + 1) == 0) {
+        xmlChar *data = xmlNodeGetContent(cur);
+        char *input = data;
+        unsigned long inlen = strlen(data);
+#if 0
+        /*
+         * output chunking
+         */
+        unsigned long cons, tmp, tmp2, prod;
+        cons = 0;
+        prod = 0;
+        int ret;
+        char output2[1024];
+        while (cons < inlen) {
+          tmp = sizeof output2;
+          tmp2 = inlen - cons;
+
+          //printf("%ld %ld\n", cons, prod);
+          ret = xmlBase64Decode(&input[cons], &tmp2, &output2[prod], &tmp);
+          cons += tmp2;
+          prod += tmp;
+          //printf("%ld %ld\n", cons, prod);
+	fwrite(output2, 1, tmp, stream);
+        }
+        //output2[outlen] = 0;
+#else
+        size_t dlen = b64_decoded_size(
+            input) /* gdcm::Base64::GetDecodeLength( input, inlen )*/;
+        void *raw = malloc(dlen);
+        //	  gdcm::Base64::Decode( raw, dlen, input, inlen );
+        b64_decode(input, raw, dlen);
+        fwrite(raw, 1, dlen, stream);
+        free(raw);
+#endif
+        xmlFree(data);
+      }
+      xmlFree(prop);
+    }
+  }
+  fclose(stream);
+}
+
 /**
  * print_element_names:
  * @a_node: the initial xml node to consider.
@@ -205,27 +470,33 @@ int register_namespaces(xmlXPathContextPtr xpathCtx, const xmlChar *nsList) {
  * Prints the names of the all the xml elements
  * that are siblings or children of a given xml node.
  */
-static void print_element_names(xmlNode *a_node) {
-#if 1
+static void print_element_names(xmlNodeSetPtr nodes0, xmlNode *a_node) {
   xmlNode *cur_node = NULL;
 
+  // name
+  xmlChar *name = NULL;
   for (cur_node = a_node; cur_node; cur_node = cur_node->next) {
     if (cur_node->type == XML_ELEMENT_NODE) {
       if (strcmp(cur_node->name, "name") == 0) {
-        xmlChar *name = xmlNodeGetContent(cur_node);
-        printf("node type: Element, name 1: %s %s\n", cur_node->name, name);
-        xmlFree(name);
-      } else if (strcmp(cur_node->name, "parameterData") == 0) {
-        xmlChar *prop = xmlGetProp(cur_node, "href");
-        printf("node type: Element, name 2: %s %s\n", cur_node->name, prop);
-        xmlFree(prop);
+        assert(name == NULL);
+        name = xmlNodeGetContent(cur_node);
       }
     }
-
-    print_element_names(cur_node->children);
   }
-
-#endif
+  // data
+  xmlChar *prop = NULL;
+  for (cur_node = a_node; cur_node; cur_node = cur_node->next) {
+    if (cur_node->type == XML_ELEMENT_NODE) {
+      if (strcmp(cur_node->name, "parameterData") == 0) {
+        assert(prop == NULL);
+        prop = xmlGetProp(cur_node, "href");
+      }
+    }
+  }
+  // printf("node type: Element, name 2: %s %s\n", cur_node->name, prop);
+  get_xpath_nodes(name, nodes0, prop);
+  xmlFree(prop);
+  xmlFree(name);
 }
 
 /**
@@ -263,12 +534,14 @@ void print_xpath_nodes(xmlNodeSetPtr nodes0, xmlNodeSetPtr nodes,
     } else if (nodes->nodeTab[i]->type == XML_ELEMENT_NODE) {
       cur = nodes->nodeTab[i];
       if (cur->ns) {
-        fprintf(output, "= element node \"%s:%s\"\n", cur->ns->href, cur->name);
-        print_element_names(cur->children);
+        //        fprintf(output, "= element node \"%s:%s\"\n", cur->ns->href,
+        //        cur->name);
+        print_element_names(nodes0, cur->children);
       } else {
         fprintf(output, "= element node \"%s\"\n", cur->name);
       }
     } else {
+      assert(0);
       cur = nodes->nodeTab[i];
       fprintf(output, "= node \"%s\": type %d\n", cur->name, cur->type);
     }
