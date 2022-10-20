@@ -8,3 +8,6 @@ Result (21 nodes):
 
 syntax:
 https://www.freeformatter.com/xpath-tester.html
+
+./xpath1 ../../SR_ADULT_007.ExamCard "//foo:ScanProcedure/*[name()='parameterData' or name()='name']" foo=http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.Acquisition.AcqGlo/philips.pmsmr.acquisition.
+acqglo_cs
