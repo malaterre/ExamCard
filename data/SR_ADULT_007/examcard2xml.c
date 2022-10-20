@@ -11,28 +11,26 @@
 #if defined(LIBXML_XPATH_ENABLED) && defined(LIBXML_SAX1_ENABLED)
 
 static void usage(const char *name);
-int execute_xpath_expression(const char *filename, const xmlChar *xpathExpr,
-                             const xmlChar *nsList);
+int execute_xpath_expression(const char *filename, const xmlChar *xpathExpr0,
+                             const xmlChar *xpathExpr, const xmlChar *nsList);
 int register_namespaces(xmlXPathContextPtr xpathCtx, const xmlChar *nsList);
-void print_xpath_nodes(xmlNodeSetPtr nodes, FILE *output);
+void print_xpath_nodes(xmlNodeSetPtr nodes0, xmlNodeSetPtr nodes, FILE *output);
 
 int main(int argc, char **argv) {
   const char *filename = argv[1];
-  // "//foo:ScanProcedure"
-  // foo=http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.Acquisition.AcqGlo/philips.pmsmr.acquisition.acqglo_cs
+  const xmlChar *xpathExpr0 = "//SOAP-ENC:Array";
   const xmlChar *xpathExpr = "//foo:ScanProcedure";
-  // const xmlChar *xpathExpr = "//foo:ScanProcedure/*[name()='parameterData' or
-  // name()='name']";
   const xmlChar *nsList =
       "foo=http://schemas.microsoft.com/clr/nsassem/"
-      "Philips.PmsMR.Acquisition.AcqGlo/philips.pmsmr.acquisition.acqglo_cs";
+      "Philips.PmsMR.Acquisition.AcqGlo/philips.pmsmr.acquisition.acqglo_cs "
+      "SOAP-ENC=http://schemas.xmlsoap.org/soap/encoding/";
 
   /* Init libxml */
   xmlInitParser();
   LIBXML_TEST_VERSION
 
   /* Do the main job */
-  if (execute_xpath_expression(filename, xpathExpr, nsList) < 0) {
+  if (execute_xpath_expression(filename, xpathExpr0, xpathExpr, nsList) < 0) {
     usage(argv[0]);
     return (-1);
   }
@@ -69,11 +67,12 @@ static void usage(const char *name) {
  *
  * Returns 0 on success and a negative value otherwise.
  */
-int execute_xpath_expression(const char *filename, const xmlChar *xpathExpr,
-                             const xmlChar *nsList) {
+int execute_xpath_expression(const char *filename, const xmlChar *xpathExpr0,
+                             const xmlChar *xpathExpr, const xmlChar *nsList) {
   xmlDocPtr doc;
   xmlXPathContextPtr xpathCtx;
   xmlXPathObjectPtr xpathObj;
+  xmlXPathObjectPtr xpathObj0;
 
   assert(filename);
   assert(xpathExpr);
@@ -103,6 +102,16 @@ int execute_xpath_expression(const char *filename, const xmlChar *xpathExpr,
   }
 
   /* Evaluate xpath expression */
+  xpathObj0 = xmlXPathEvalExpression(xpathExpr0, xpathCtx);
+  if (xpathObj0 == NULL) {
+    fprintf(stderr, "Error: unable to evaluate xpath expression \"%s\"\n",
+            xpathExpr);
+    xmlXPathFreeContext(xpathCtx);
+    xmlFreeDoc(doc);
+    return (-1);
+  }
+
+  /* Evaluate xpath expression */
   xpathObj = xmlXPathEvalExpression(xpathExpr, xpathCtx);
   if (xpathObj == NULL) {
     fprintf(stderr, "Error: unable to evaluate xpath expression \"%s\"\n",
@@ -113,9 +122,10 @@ int execute_xpath_expression(const char *filename, const xmlChar *xpathExpr,
   }
 
   /* Print results */
-  print_xpath_nodes(xpathObj->nodesetval, stdout);
+  print_xpath_nodes(xpathObj0->nodesetval, xpathObj->nodesetval, stdout);
 
   /* Cleanup */
+  xmlXPathFreeObject(xpathObj0);
   xmlXPathFreeObject(xpathObj);
   xmlXPathFreeContext(xpathCtx);
   xmlFreeDoc(doc);
@@ -225,7 +235,8 @@ static void print_element_names(xmlNode *a_node) {
  *
  * Prints the @nodes content to @output.
  */
-void print_xpath_nodes(xmlNodeSetPtr nodes, FILE *output) {
+void print_xpath_nodes(xmlNodeSetPtr nodes0, xmlNodeSetPtr nodes,
+                       FILE *output) {
   xmlNodePtr cur;
   int size;
   int i;
