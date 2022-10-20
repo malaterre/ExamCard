@@ -8,132 +8,6 @@
 #include <libxml/xpath.h>
 #include <libxml/xpathInternals.h>
 
-#if 0
-/**
- * xmlBase64Decode:
- * @in:  the input buffer
- * @inlen:  the size of the input (in), the size read from it (out)
- * @to:  the output buffer
- * @tolen:  the size of the output (in), the size written to (out)
- *
- * Base64 decoder, reads from @in and save in @to
- * TODO: tell jody when this is actually exported
- *
- * Returns 0 if all the input was consumer, 1 if the Base64 end was reached,
- *         2 if there wasn't enough space on the output or -1 in case of error.
- */
-static int
-xmlBase64Decode(const unsigned char *in, unsigned long *inlen,
-                unsigned char *to, unsigned long *tolen)
-{
-    unsigned long incur;        /* current index in in[] */
-
-    unsigned long inblk;        /* last block index in in[] */
-
-    unsigned long outcur;       /* current index in out[] */
-
-    unsigned long inmax;        /* size of in[] */
-
-    unsigned long outmax;       /* size of out[] */
-
-    unsigned char cur;          /* the current value read from in[] */
-
-    unsigned char intmp[4], outtmp[4];  /* temporary buffers for the convert */
-
-    int nbintmp;                /* number of byte in intmp[] */
-
-    int is_ignore;              /* cur should be ignored */
-
-    int is_end = 0;             /* the end of the base64 was found */
-
-    int retval = 1;
-
-    int i;
-
-    if ((in == NULL) || (inlen == NULL) || (to == NULL) || (tolen == NULL))
-        return (-1);
-
-    incur = 0;
-    inblk = 0;
-    outcur = 0;
-    inmax = *inlen;
-    outmax = *tolen;
-    nbintmp = 0;
-
-    while (1) {
-        if (incur >= inmax)
-            break;
-        cur = in[incur++];
-        is_ignore = 0;
-        if ((cur >= 'A') && (cur <= 'Z'))
-            cur = cur - 'A';
-        else if ((cur >= 'a') && (cur <= 'z'))
-            cur = cur - 'a' + 26;
-        else if ((cur >= '0') && (cur <= '9'))
-            cur = cur - '0' + 52;
-        else if (cur == '+')
-            cur = 62;
-        else if (cur == '/')
-            cur = 63;
-        else if (cur == '.')
-            cur = 0;
-        else if (cur == '=')    /*no op , end of the base64 stream */
-            is_end = 1;
-        else {
-            is_ignore = 1;
-            if (nbintmp == 0)
-                inblk = incur;
-        }
-
-        if (!is_ignore) {
-            int nbouttmp = 3;
-
-            int is_break = 0;
-
-            if (is_end) {
-                if (nbintmp == 0)
-                    break;
-                if ((nbintmp == 1) || (nbintmp == 2))
-                    nbouttmp = 1;
-                else
-                    nbouttmp = 2;
-                nbintmp = 3;
-                is_break = 1;
-            }
-            intmp[nbintmp++] = cur;
-            /*
-             * if intmp is full, push the 4byte sequence as a 3 byte
-             * sequence out
-             */
-            if (nbintmp == 4) {
-                nbintmp = 0;
-                outtmp[0] = (intmp[0] << 2) | ((intmp[1] & 0x30) >> 4);
-                outtmp[1] =
-                    ((intmp[1] & 0x0F) << 4) | ((intmp[2] & 0x3C) >> 2);
-                outtmp[2] = ((intmp[2] & 0x03) << 6) | (intmp[3] & 0x3F);
-                if (outcur + 3 >= outmax) {
-                    retval = 2;
-                    break;
-                }
-
-                for (i = 0; i < nbouttmp; i++)
-                    to[outcur++] = outtmp[i];
-                inblk = incur;
-            }
-
-            if (is_break) {
-                retval = 0;
-                break;
-            }
-        }
-    }
-
-    *tolen = outcur;
-    *inlen = inblk;
-    return (retval);
-}
-#endif
-
 size_t b64_decoded_size(const char *in) {
   size_t len;
   size_t ret;
@@ -418,35 +292,11 @@ void get_xpath_nodes(xmlChar *name, xmlNodeSetPtr nodes, const char *href_id) {
     cur = nodes->nodeTab[i];
     assert(cur->ns);
     if (cur->ns) {
-      //        fprintf(output, "= element node \"%s:%s\"\n", cur->ns->href,
-      //        cur->name);
       xmlChar *prop = xmlGetProp(cur, "id");
       if (strcmp(prop, href_id + 1) == 0) {
         xmlChar *data = xmlNodeGetContent(cur);
         char *input = data;
         unsigned long inlen = strlen(data);
-#if 0
-        /*
-         * output chunking
-         */
-        unsigned long cons, tmp, tmp2, prod;
-        cons = 0;
-        prod = 0;
-        int ret;
-        char output2[1024];
-        while (cons < inlen) {
-          tmp = sizeof output2;
-          tmp2 = inlen - cons;
-
-          //printf("%ld %ld\n", cons, prod);
-          ret = xmlBase64Decode(&input[cons], &tmp2, &output2[prod], &tmp);
-          cons += tmp2;
-          prod += tmp;
-          //printf("%ld %ld\n", cons, prod);
-	fwrite(output2, 1, tmp, stream);
-        }
-        //output2[outlen] = 0;
-#else
         size_t dlen = b64_decoded_size(
             input) /* gdcm::Base64::GetDecodeLength( input, inlen )*/;
         void *raw = malloc(dlen);
@@ -454,7 +304,6 @@ void get_xpath_nodes(xmlChar *name, xmlNodeSetPtr nodes, const char *href_id) {
         b64_decode(input, raw, dlen);
         fwrite(raw, 1, dlen, stream);
         free(raw);
-#endif
         xmlFree(data);
       }
       xmlFree(prop);
@@ -534,8 +383,6 @@ void print_xpath_nodes(xmlNodeSetPtr nodes0, xmlNodeSetPtr nodes,
     } else if (nodes->nodeTab[i]->type == XML_ELEMENT_NODE) {
       cur = nodes->nodeTab[i];
       if (cur->ns) {
-        //        fprintf(output, "= element node \"%s:%s\"\n", cur->ns->href,
-        //        cur->name);
         print_element_names(nodes0, cur->children);
       } else {
         fprintf(output, "= element node \"%s\"\n", cur->name);
