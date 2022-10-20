@@ -7,3 +7,6 @@ set_property(TARGET dump PROPERTY C_STANDARD 11)
 find_package(LibXml2 2.9 MODULE REQUIRED)
 add_executable(xpath1 xpath1.c)
 target_link_libraries(xpath1 PRIVATE LibXml2::LibXml2)
+
+add_executable(examcard2xml examcard2xml.c)
+target_link_libraries(examcard2xml PRIVATE LibXml2::LibXml2)
