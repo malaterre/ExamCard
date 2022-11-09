@@ -35,6 +35,14 @@ static size_t file_size(const char *filename) {
   return fsize;
 }
 
+static size_t get_data_len(const struct header *h) {
+  size_t param_len = 50 * h->numparams;
+  size_t int_len = 4 * h->num_ints;
+  size_t float_len = 4 * h->num_floats;
+  size_t computed_len = param_len + int_len + float_len + h->other_data_len;
+  return computed_len;
+}
+
 static void check_header(struct header *h, const size_t data_len) {
   assert(h->ints_offset == h->numparams * 50 + 32);
   assert(offsetof(struct header, floats_offset) == 8);
@@ -44,10 +52,7 @@ static void check_header(struct header *h, const size_t data_len) {
   assert(h->v8 == 0x8);
 
   assert(sizeof(struct param) == 50);
-  size_t param_len = 50 * h->numparams;
-  size_t int_len = 4 * h->num_ints;
-  size_t float_len = 4 * h->num_floats;
-  size_t computed_len = param_len + int_len + float_len + h->other_data_len;
+  size_t computed_len = get_data_len(h);
   printf("computed_len: 0x%zx %zu\n", computed_len, computed_len);
   assert(computed_len == data_len);
   // can be odd number:
@@ -82,6 +87,12 @@ static void check_param(const struct header *h, const struct param *p) {
   assert(h);
   assert(p->for_disp == 0x0 || p->for_disp == 0x1);
   assert(p->type == 0x0 || p->type == 0x1 || p->type == 0x2 || p->type == 0x4);
+  assert(p->eoffset < 0xffff); // FIXME
+  assert(p->offset < 0xffff);  // FIXME
+
+  size_t data_len = get_data_len(h);
+  const offset = p->offset;
+  assert(offset > 32 && offset < data_len);
   switch (p->type) {
   case Float:
     assert(p->eoffset == 0x0);
@@ -98,10 +109,9 @@ static void check_param(const struct header *h, const struct param *p) {
   default:
     assert(0);
   }
+  // ??
   const char *name = p->name;
   assert(name[2] == '_' || name[3] == '_');
-  assert(p->eoffset < 0xffff); // FIXME
-  assert(p->offset < 0xffff);  // FIXME
 }
 
 static void print_param(const struct header *h, const struct param *p) {
@@ -114,7 +124,75 @@ static void print_param(const struct header *h, const struct param *p) {
          name, p->for_disp, type_str, p->dim, p->eoffset, p->offset);
 }
 
-static void process_data(const struct header *h, void *data, size_t data_len) {
+typedef char str80[80 + 1];
+
+static void print_values(const struct header *h, const struct param *p,
+                         const uint32_t i, const char *data,
+                         const size_t data_len) {
+  assert(h);
+  (void)data_len;
+  int pos0 = 0;
+  long offset1 = p->eoffset + i * 50 + 42 + pos0;
+  long offset2 = p->offset + i * 50 + 46 + pos0;
+  uint32_t num = p->dim;
+  switch (p->type) {
+  case Float:
+    printf("\t%x=>", offset2);
+    for (uint32_t k = 0; k < num; ++k) {
+      float f;
+      memcpy(&f, data + offset2 + k * 4, sizeof f);
+      if (k)
+        printf(",");
+      printf("%g", f);
+    }
+    printf("\n");
+    break;
+  case Integer:
+    printf("\t%x=>", offset2);
+    for (uint32_t k = 0; k < num; ++k) {
+      int32_t f;
+      memcpy(&f, data + offset2 + k * 4, sizeof f);
+      if (k)
+        printf(",");
+      printf("%d", f);
+    }
+    printf("\n");
+    break;
+  case String:
+    printf("\t%x=>", offset2);
+    for (uint32_t k = 0; k < num; ++k) {
+      str80 f;
+      memcpy(&f, data + offset2 + k * sizeof f, sizeof f);
+      if (k)
+        printf(",");
+      printf("%s", f);
+    }
+    printf("\n");
+    break;
+  case Enum: {
+    char b[64];
+    memcpy(b, data + offset1, 64);
+    b[63] = 0;
+    printf("\t%x\t%s", offset1, b);
+  }
+    printf("\n");
+    printf("\t=>");
+    for (uint32_t k = 0; k < num; ++k) {
+      int32_t f;
+      memcpy(&f, data + offset2 + k * 4, sizeof f);
+      if (k)
+        printf(",");
+      printf("%d", f);
+    }
+    printf("\n");
+    break;
+  default:
+    assert(0);
+  }
+}
+
+static void process_data(const struct header *h, const void *data,
+                         size_t data_len) {
   const char *cur = data;
   (void)data_len;
   for (uint32_t p = 0; p < h->numparams; ++p) {
@@ -123,6 +201,7 @@ static void process_data(const struct header *h, void *data, size_t data_len) {
     memcpy(&param, cur, sizeof param);
     check_param(h, &param);
     print_param(h, &param);
+    print_values(h, &param, p, data, data_len);
     cur += sizeof param;
   }
 }
