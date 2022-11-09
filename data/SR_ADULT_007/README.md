@@ -15,4 +15,6 @@ acqglo_cs
 Ex:
 
 ./dump B1MAP_SAG_TR51_TR120_60DEG_SPOIL120.raw   
+
+./dump Quiet_Survey.raw
 ./examcard2xml ../../SR_ADULT_007.ExamCard

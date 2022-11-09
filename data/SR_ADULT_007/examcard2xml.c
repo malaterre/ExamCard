@@ -84,7 +84,7 @@ int b64_decode(const char *in, unsigned char *out, size_t outlen) {
   return 1;
 }
 
-#if defined(LIBXML_XPATH_ENABLED) && defined(LIBXML_SAX1_ENABLED)
+// Need LIBXML_XPATH_ENABLED & LIBXML_SAX1_ENABLED
 
 static void usage(const char *name);
 int execute_xpath_expression(const char *filename, const xmlChar *xpathExpr0,
@@ -369,6 +369,7 @@ void print_xpath_nodes(xmlNodeSetPtr nodes0, xmlNodeSetPtr nodes,
     assert(nodes->nodeTab[i]);
 
     if (nodes->nodeTab[i]->type == XML_NAMESPACE_DECL) {
+      assert(0);
       xmlNsPtr ns;
 
       ns = (xmlNsPtr)nodes->nodeTab[i];
@@ -394,10 +395,3 @@ void print_xpath_nodes(xmlNodeSetPtr nodes0, xmlNodeSetPtr nodes,
     }
   }
 }
-
-#else
-int main(void) {
-  fprintf(stderr, "XPath support not compiled in\n");
-  return 0;
-}
-#endif

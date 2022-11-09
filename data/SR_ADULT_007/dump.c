@@ -226,7 +226,8 @@ int main(int argc, char *argv[]) {
     str80 f;
     fread(&f, sizeof f, 1, stream);
   }
-  printf("\n0x%04x\n", ftell(stream));
+  long start_enum = ftell(stream);
+  printf("\n0x%04x\n", start_enum /*ftell(stream)*/);
   // print enums
   size_t count;
   int e = 0;
@@ -237,6 +238,9 @@ int main(int argc, char *argv[]) {
     if (count)
       printf("E%d: %s\n", e++, buffer);
   } while (count != 0);
+  long end_enum = ftell(stream);
+
+  fseek(stream, start_enum, SEEK_SET);
 
   fclose(stream);
   return 0;
