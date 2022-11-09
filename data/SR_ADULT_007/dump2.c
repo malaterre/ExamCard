@@ -10,7 +10,7 @@ struct header {
   uint32_t floats_offset;
   uint32_t num_floats;
   uint32_t strings_offset;
-  uint32_t num_strings;
+  uint32_t other_data_len;
   uint32_t v8;
   uint32_t numparams;
 };
@@ -42,9 +42,9 @@ static void print_header(struct header *h) {
   assert(h->v8 == 0x8);
   printf("0x%x 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x\n", h->ints_offset,
          h->num_ints, h->floats_offset, h->num_floats, h->strings_offset,
-         h->num_strings, h->v8, h->numparams);
+         h->other_data_len, h->v8, h->numparams);
   printf("%u %u %u %u %u %u %u %u\n", h->ints_offset, h->num_ints,
-         h->floats_offset, h->num_floats, h->strings_offset, h->num_strings,
+         h->floats_offset, h->num_floats, h->strings_offset, h->other_data_len,
          h->v8, h->numparams);
 }
 
@@ -67,7 +67,7 @@ int main(int argc, char *argv[]) {
   size_t param_len = 50 * header.numparams;
   size_t int_len = 4 * header.num_ints;
   size_t float_len = 4 * header.num_floats;
-  size_t computed_len = param_len + int_len + float_len + header.num_strings;
+  size_t computed_len = param_len + int_len + float_len + header.other_data_len;
   printf("computed_len: 0x%x %u\n", computed_len, computed_len);
   assert(computed_len == data_len);
 
