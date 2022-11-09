@@ -25,6 +25,14 @@ struct PACK param {
   uint32_t offset;  // actual value offset
 };
 
+static size_t file_size(const char *filename) {
+  FILE *f = fopen(filename, "rb");
+  fseek(f, 0, SEEK_END);
+  long fsize = ftell(f);
+  fclose(f);
+  return fsize;
+}
+
 static void print_header(struct header *h) {
   assert(h->ints_offset == h->numparams * 50 + 32);
   assert(offsetof(struct header, floats_offset) == 8);
@@ -44,12 +52,24 @@ int main(int argc, char *argv[]) {
   if (argc < 2)
     return 1;
   const char *filename = argv[1];
+  size_t len = file_size(filename);
+  printf("0x%x %u\n", len, len);
+  size_t data_len = len - 32;
+  printf("data_len: 0x%x %u\n", data_len, data_len);
 
   FILE *stream = fopen(filename, "rb");
   struct header header;
   assert(sizeof header == 32);
   size_t ret = fread(&header, sizeof header, 1, stream);
   print_header(&header);
+
+  assert(sizeof(struct param) == 50);
+  size_t param_len = 50 * header.numparams;
+  size_t int_len = 4 * header.num_ints;
+  size_t float_len = 4 * header.num_floats;
+  size_t computed_len = param_len + int_len + float_len + header.num_strings;
+  printf("computed_len: 0x%x %u\n", computed_len, computed_len);
+  assert(computed_len == data_len);
 
   fclose(stream);
   return 0;
