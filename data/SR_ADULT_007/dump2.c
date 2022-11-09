@@ -48,7 +48,7 @@ static void check_header(struct header *h, const size_t data_len) {
   size_t int_len = 4 * h->num_ints;
   size_t float_len = 4 * h->num_floats;
   size_t computed_len = param_len + int_len + float_len + h->other_data_len;
-  printf("computed_len: 0x%x %u\n", computed_len, computed_len);
+  printf("computed_len: 0x%zx %zu\n", computed_len, computed_len);
   assert(computed_len == data_len);
   // can be odd number:
   // assert(computed_len % 4 == 0);
@@ -78,28 +78,22 @@ static const char *ParamTypes[] = {
     "enum",    // 4
 };
 
-static void print_param(const struct header *h, const struct param *p) {
+static void check_param(const struct header *h, const struct param *p) {
+  assert(h);
   assert(p->for_disp == 0x0 || p->for_disp == 0x1);
   assert(p->type == 0x0 || p->type == 0x1 || p->type == 0x2 || p->type == 0x4);
-  const char *type_str = ParamTypes[p->type];
-  assert(type_str);
-  uint32_t ints_offset = h->ints_offset;
   switch (p->type) {
   case Float:
     assert(p->eoffset == 0x0);
-    // assert(p->offset >= ints_offset );
     break;
   case Integer:
     assert(p->eoffset == 0x0);
-    // assert(p->offset <= ints_offset );
     break;
   case String:
     assert(p->eoffset == 0x0);
-    // assert(p->offset >= ints_offset );
     break;
   case Enum:
     assert(p->eoffset != 0x0);
-    // assert(p->offset <= ints_offset );
     break;
   default:
     assert(0);
@@ -108,6 +102,13 @@ static void print_param(const struct header *h, const struct param *p) {
   assert(name[2] == '_' || name[3] == '_');
   assert(p->eoffset < 0xffff); // FIXME
   assert(p->offset < 0xffff);  // FIXME
+}
+
+static void print_param(const struct header *h, const struct param *p) {
+  assert(h);
+  const char *type_str = ParamTypes[p->type];
+  assert(type_str);
+  const char *name = p->name;
   printf("%-32s\tdisp:%u\ttype:%s\tsize:%u\toffset1:0x%04x\toffset2:0x%"
          "04x\n",
          name, p->for_disp, type_str, p->dim, p->eoffset, p->offset);
@@ -115,10 +116,12 @@ static void print_param(const struct header *h, const struct param *p) {
 
 static void process_data(const struct header *h, void *data, size_t data_len) {
   const char *cur = data;
-  for (int p = 0; p < h->numparams; ++p) {
+  (void)data_len;
+  for (uint32_t p = 0; p < h->numparams; ++p) {
     struct param param;
     assert(sizeof param == 50);
     memcpy(&param, cur, sizeof param);
+    check_param(h, &param);
     print_param(h, &param);
     cur += sizeof param;
   }
@@ -129,9 +132,9 @@ int main(int argc, char *argv[]) {
     return 1;
   const char *filename = argv[1];
   size_t len = file_size(filename);
-  printf("0x%x %u\n", len, len);
+  printf("0x%zx %zu\n", len, len);
   size_t data_len = len - 32;
-  printf("data_len: 0x%x %u\n", data_len, data_len);
+  printf("data_len: 0x%zx %zu\n", data_len, data_len);
 
   FILE *stream = fopen(filename, "rb");
   struct header header;
