@@ -1,11 +1,22 @@
-#include <stdint.h> /* uint32_t */
-#include <stdio.h>  /* FILE */
-#include <stdlib.h> /* malloc */
-#include <string.h> /* memcpy */
+#include <stdbool.h> /* bool */
+#include <stdint.h>  /* uint32_t */
+#include <stdio.h>   /* FILE */
+#include <stdlib.h>  /* malloc */
+#include <string.h>  /* memcpy */
 
 #include <assert.h>
 
 // implementation details:
+#if 1
+static inline bool is_aligned(const void *restrict pointer, size_t byte_count) {
+  // https://stackoverflow.com/questions/1898153/how-to-determine-if-memory-is-aligned
+  return (uintptr_t)pointer % byte_count == 0;
+}
+#else
+#define is_aligned(POINTER, BYTE_COUNT)                                        \
+  (((uintptr_t)(const void *)(POINTER)) % (BYTE_COUNT) == 0)
+#endif
+
 static size_t file_size(const char *filename) {
   FILE *f = fopen(filename, "rb");
   fseek(f, 0, SEEK_END);
@@ -54,15 +65,66 @@ static void print_header(struct header *h) {
 }
 
 // populate header
+#if 0
 static void get_header(struct header *header,
                        const struct examcard_data *examcard_data) {
   memcpy(header, examcard_data->data, sizeof *header);
 }
+#endif
+
+static const struct header *
+get_header2(const struct examcard_data *examcard_data) {
+  assert(is_aligned(examcard_data->data, 4));
+  return (const struct header *)examcard_data->data;
+}
+
+static const void *get_param_ptr(const struct examcard_data *examcard_data,
+                                 uint32_t param_index) {
+  const uint32_t header_size = 32;
+  return examcard_data->data + param_index * 50 + header_size;
+}
+
+enum ParamType {
+  Float = 0x0,
+  Integer = 0x1,
+  String = 0x2,
+  Enum = 0x4,
+};
+
+static const char *ParamTypes[] = {
+    "float",   // 0
+    "integer", // 1
+    "string",  // 2
+    NULL,      // 3
+    "enum",    // 4
+};
+
+static void print_param(const struct param *param) {
+  const char *type_str = ParamTypes[param->type];
+  assert(type_str);
+  const char *name = param->name;
+  printf("%-32s\tdisp:%u\ttype:%s\tsize:%u\toffset1:0x%04x\toffset2:0x%"
+         "04x\n",
+         name, param->for_disp, type_str, param->dim, param->eoffset,
+         param->offset);
+}
 
 static void process_examcard_data2(const struct examcard_data *examcard_data) {
+#if 0
   struct header header;
   get_header(&header, examcard_data);
-  print_header(&header);
+  //print_header(&header);
+  for (uint32_t p = 0; p < header.numparams; ++p) {
+	 }
+#else
+  const struct header *header = get_header2(examcard_data);
+  struct param param;
+  for (uint32_t p = 0; p < header->numparams; ++p) {
+    const void *param_ptr = get_param_ptr(examcard_data, p);
+    memcpy(&param, param_ptr, sizeof param);
+    print_param(&param);
+  }
+#endif
 }
 
 // exported:
@@ -81,7 +143,8 @@ int main(int argc, char *argv[]) {
   size_t len = file_size(filename);
 
   int err = 1;
-  void *data = malloc(len);
+  //  void *data = malloc(len);
+  void *data = aligned_alloc(4, len);
   if (data) {
     FILE *stream = fopen(filename, "rb");
     const size_t ret = fread(data, 1, len, stream);
