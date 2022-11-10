@@ -163,6 +163,36 @@ get_location_from_abs_offset(const struct examcard_data *examcard_data,
   }
 }
 
+static bool get_enum(char *buffer, size_t buf_len, const char *input, int j) {
+  if (j < 0) {
+    *buffer = 0;
+    return false;
+  }
+  const size_t len = strlen(input);
+  const char *output = input;
+  for (int i = 0; i < j; ++i) {
+    assert(output != NULL);
+    const char *tmp = strchr(output, ',');
+    if (tmp == NULL) {
+      *buffer = 0;
+      return false;
+    }
+    output = tmp + 1;
+  }
+  const char *tmp = strchr(output, ',');
+  const size_t to_copy =
+      tmp == NULL ? len - (output - input) : (size_t)(tmp - output);
+  // it is an error when buffer too small to contains trailing null byte:
+  if (to_copy < buf_len) {
+    strncpy(buffer, output, to_copy);
+    buffer[to_copy] = 0;
+  } else {
+    *buffer = 0;
+    return false;
+  }
+  return true;
+}
+
 static void process_examcard_data2(const struct examcard_data *examcard_data) {
 #if 0
   struct header header;
@@ -176,12 +206,14 @@ static void process_examcard_data2(const struct examcard_data *examcard_data) {
   assert(offsetof(struct param, eoffset) == 42);
   assert(offsetof(struct param, offset) == 46);
   for (uint32_t p = 0; p < header->numparams; ++p) {
-    const void *param_ptr = get_param_ptr(examcard_data, p);
+    const char *param_ptr = get_param_ptr(examcard_data, p);
     memcpy(&param, param_ptr, sizeof param);
     print_param(&param);
-    uint32_t offset1 = param.eoffset + p * 50 + 42 + 32;
-    uint32_t offset2 = param.offset + p * 50 + 46 + 32;
-    enum ParamType type = param.type;
+    assert(param_ptr - examcard_data->data == p * 50 + 32);
+    const uint32_t offset1 = param.eoffset + p * 50 + 42 + 32;
+    const uint32_t offset2 = param.offset + p * 50 + 46 + 32;
+    const enum ParamType type = param.type;
+    const uint32_t num = param.dim;
     enum LocationType location;
     switch (type) {
     case Float:
@@ -199,6 +231,17 @@ static void process_examcard_data2(const struct examcard_data *examcard_data) {
     case Enum:
       location = get_location_from_abs_offset(examcard_data, offset1);
       assert(location == OtherData);
+      {
+        const char *enum_str = examcard_data->data + offset1;
+        const size_t enum_len = strlen(enum_str);
+        for (uint32_t k = 0; k < num; ++k) {
+          uint32_t f;
+          memcpy(&f, examcard_data->data + offset2 + k * 4, sizeof f);
+          char buffer[8 * 2];
+          bool res = get_enum(buffer, sizeof buffer, enum_str, f);
+          assert(res);
+        }
+      }
       break;
     }
   }
@@ -220,7 +263,6 @@ int main(int argc, char *argv[]) {
   size_t len = file_size(filename);
 
   int err = 1;
-  //  void *data = malloc(len);
   void *data = aligned_alloc(4, len);
   if (data) {
     FILE *stream = fopen(filename, "rb");
