@@ -1,4 +1,5 @@
 #include <assert.h>
+#include <stdbool.h>
 #include <stddef.h> // offsetof
 #include <stdint.h>
 #include <stdio.h>
@@ -18,13 +19,13 @@ struct header {
 
 #define PACK __attribute__((__packed__))
 struct PACK param {
-  char name[32 + 0];
-  uint8_t zero;
+  char name[32 + 1]; // there is data stored after the trailing \0
   uint8_t for_disp;
   uint32_t type;
   uint32_t dim;
-  uint32_t eoffset; // enum offset
-  uint32_t offset;  // actual value offset
+  uint32_t eoffset; // enum offset, the hardcoded strings
+  uint32_t
+      offset; // actual value offset, for enum this is an index in the vector
 };
 
 static size_t file_size(const char *filename) {
@@ -91,7 +92,7 @@ static void check_param(const struct header *h, const struct param *p) {
   assert(p->offset < 0xffff);  // FIXME
 
   size_t data_len = get_data_len(h);
-  const offset = p->offset;
+  const uint32_t offset = p->offset;
   assert(offset > 32 && offset < data_len);
   switch (p->type) {
   case Float:
@@ -124,6 +125,36 @@ static void print_param(const struct header *h, const struct param *p) {
          name, p->for_disp, type_str, p->dim, p->eoffset, p->offset);
 }
 
+static bool get_enum(char *buffer, size_t buf_len, const char *input, int j) {
+  if (j < 0) {
+    *buffer = 0;
+    return false;
+  }
+  const size_t len = strlen(input);
+  const char *output = input;
+  for (int i = 0; i < j; ++i) {
+    assert(output != NULL);
+    const char *tmp = strchr(output, ',');
+    if (tmp == NULL) {
+      *buffer = 0;
+      return false;
+    }
+    output = tmp + 1;
+  }
+  const char *tmp = strchr(output, ',');
+  const size_t to_copy =
+      tmp == NULL ? len - (output - input) : (size_t)(tmp - output);
+  // it is an error when buffer too small to contains trailing null byte:
+  if (to_copy < buf_len) {
+    strncpy(buffer, output, to_copy);
+    buffer[to_copy] = 0;
+  } else {
+    *buffer = 0;
+    return false;
+  }
+  return true;
+}
+
 typedef char str80[80 + 1];
 
 static void print_values(const struct header *h, const struct param *p,
@@ -131,9 +162,9 @@ static void print_values(const struct header *h, const struct param *p,
                          const size_t data_len) {
   assert(h);
   (void)data_len;
-  int pos0 = 0;
-  long offset1 = p->eoffset + i * 50 + 42 + pos0;
-  long offset2 = p->offset + i * 50 + 46 + pos0;
+  uint32_t pos0 = 0;
+  uint32_t offset1 = p->eoffset + i * 50 + 42 + pos0;
+  uint32_t offset2 = p->offset + i * 50 + 46 + pos0;
   uint32_t num = p->dim;
   switch (p->type) {
   case Float:
@@ -169,20 +200,21 @@ static void print_values(const struct header *h, const struct param *p,
     }
     printf("\n");
     break;
-  case Enum: {
-    char b[64];
-    memcpy(b, data + offset1, 64);
-    b[63] = 0;
-    printf("\t%x\t%s", offset1, b);
-  }
-    printf("\n");
+  case Enum:
     printf("\t=>");
     for (uint32_t k = 0; k < num; ++k) {
       int32_t f;
       memcpy(&f, data + offset2 + k * 4, sizeof f);
       if (k)
         printf(",");
-      printf("%d", f);
+      char buffer[8 * 2];
+      const char *enum_str = data + offset1;
+      if (get_enum(buffer, sizeof buffer, enum_str, f)) {
+        printf("%s", buffer);
+      } else {
+        printf("%d", f);
+        assert(0);
+      }
     }
     printf("\n");
     break;
