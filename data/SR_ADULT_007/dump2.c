@@ -157,10 +157,55 @@ static bool get_enum(char *buffer, size_t buf_len, const char *input, int j) {
 
 typedef char str80[80 + 1];
 
+enum LocationType {
+  LUnknown = 0,
+  LParam = 1,
+  LInt = 2,
+  LFloat = 3,
+  LOther = 4
+};
+
+static enum LocationType get_location_from_offset(const struct header *h,
+                                                  const char *data,
+                                                  const size_t data_len,
+                                                  uint32_t offset) {
+	const uint32_t int_beg = h->numparams * 50;
+	const uint32_t int_end = h->numparams * 50 + h->num_ints * 4;
+	const uint32_t float_beg = int_end;
+	const uint32_t float_end = int_end + h->num_floats * 4;
+	assert(0);
+  if (offset < h->numparams * 50) {
+    assert(offset < h->ints_offset);
+    return LParam;
+  } else if (offset < h->ints_offset + h->num_ints * 4) {
+    assert(offset < h->floats_offset);
+    return LInt;
+  } else if (offset < h->floats_offset + h->num_floats * 4) {
+    return LFloat;
+  } else {
+    return LOther;
+  }
+}
+
+void check_offset(const struct header *h, const struct param *p,
+                  const uint32_t i, const char *data, const size_t data_len) {
+  uint32_t offset1 = p->eoffset + i * 50 + 42 + 0;
+  uint32_t offset2 = p->offset + i * 50 + 46 + 0;
+  enum ParamType type = p->type;
+  enum LocationType location;
+  location = get_location_from_offset(h, data, data_len, offset2);
+  switch (type) {
+  case Float:
+    assert(location == LFloat);
+    break;
+  }
+}
+
 static void print_values(const struct header *h, const struct param *p,
                          const uint32_t i, const char *data,
                          const size_t data_len) {
   assert(h);
+  check_offset(h, p, i, data, data_len);
   (void)data_len;
   uint32_t pos0 = 0;
   uint32_t offset1 = p->eoffset + i * 50 + 42 + pos0;

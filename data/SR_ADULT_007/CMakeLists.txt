@@ -10,6 +10,9 @@ set_property(TARGET get PROPERTY C_STANDARD 11)
 add_executable(dump2 dump2.c)
 set_property(TARGET dump2 PROPERTY C_STANDARD 11)
 
+add_executable(dump3 dump3.c)
+set_property(TARGET dump3 PROPERTY C_STANDARD 11)
+
 add_executable(test test.c)
 set_property(TARGET test PROPERTY C_STANDARD 11)
 
