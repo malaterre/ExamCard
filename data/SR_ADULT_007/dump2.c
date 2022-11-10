@@ -7,12 +7,12 @@
 #include <string.h>
 
 struct header {
-  uint32_t ints_offset; //  offset to values (right after header)
-  uint32_t num_ints;
-  uint32_t floats_offset;
-  uint32_t num_floats;
-  uint32_t strings_offset;
-  uint32_t other_data_len;
+  uint32_t ints_offset; // relative offset to values (right after header)
+  uint32_t num_ints; // * 4
+  uint32_t floats_offset; // relative offset
+  uint32_t num_floats; // * 4
+  uint32_t other_data_offset;
+  uint32_t other_data_len; // in bytes
   uint32_t v8; // always equals to 8 ?
   uint32_t numparams;
 };
@@ -23,9 +23,9 @@ struct PACK param {
   uint8_t for_disp;
   uint32_t type;
   uint32_t dim;
-  uint32_t eoffset; // enum offset, the hardcoded strings
+  uint32_t eoffset; // relative enum offset, the hardcoded strings
   uint32_t
-      offset; // actual value offset, for enum this is an index in the vector
+      offset; // actual relative value offset, for enum this is an absolute index in the vector
 };
 
 static size_t file_size(const char *filename) {
@@ -48,8 +48,8 @@ static void check_header(struct header *h, const size_t data_len) {
   assert(h->ints_offset == h->numparams * 50 + 32);
   assert(offsetof(struct header, floats_offset) == 8);
   assert(h->ints_offset + h->num_ints * 4 == h->floats_offset + 8);
-  assert(offsetof(struct header, strings_offset) == 16);
-  assert(h->floats_offset + h->num_floats * 4 == h->strings_offset + 8);
+  assert(offsetof(struct header, other_data_offset) == 16);
+  assert(h->floats_offset + h->num_floats * 4 == h->other_data_offset + 8);
   assert(h->v8 == 0x8);
 
   assert(sizeof(struct param) == 50);
@@ -62,10 +62,10 @@ static void check_header(struct header *h, const size_t data_len) {
 
 static void print_header(struct header *h) {
   printf("0x%x 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x\n", h->ints_offset,
-         h->num_ints, h->floats_offset, h->num_floats, h->strings_offset,
+         h->num_ints, h->floats_offset, h->num_floats, h->other_data_offset,
          h->other_data_len, h->v8, h->numparams);
   printf("%u %u %u %u %u %u %u %u\n", h->ints_offset, h->num_ints,
-         h->floats_offset, h->num_floats, h->strings_offset, h->other_data_len,
+         h->floats_offset, h->num_floats, h->other_data_offset, h->other_data_len,
          h->v8, h->numparams);
 }
 

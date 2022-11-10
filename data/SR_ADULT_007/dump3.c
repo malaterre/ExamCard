@@ -1,4 +1,5 @@
 #include <stdbool.h> /* bool */
+#include <stddef.h>  /* offsetof */
 #include <stdint.h>  /* uint32_t */
 #include <stdio.h>   /* FILE */
 #include <stdlib.h>  /* malloc */
@@ -32,7 +33,7 @@ struct header {
   uint32_t num_ints;
   uint32_t floats_offset;
   uint32_t num_floats;
-  uint32_t strings_offset;
+  uint32_t other_data_offset;
   uint32_t other_data_len;
   uint32_t v8; // always equals to 8 ?
   uint32_t numparams;
@@ -55,13 +56,13 @@ struct examcard_data {
   size_t len;
 };
 
-static void print_header(struct header *h) {
+static void print_header(const struct header *h) {
   printf("0x%x 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x\n", h->ints_offset,
-         h->num_ints, h->floats_offset, h->num_floats, h->strings_offset,
+         h->num_ints, h->floats_offset, h->num_floats, h->other_data_offset,
          h->other_data_len, h->v8, h->numparams);
   printf("%u %u %u %u %u %u %u %u\n", h->ints_offset, h->num_ints,
-         h->floats_offset, h->num_floats, h->strings_offset, h->other_data_len,
-         h->v8, h->numparams);
+         h->floats_offset, h->num_floats, h->other_data_offset,
+         h->other_data_len, h->v8, h->numparams);
 }
 
 // populate header
@@ -109,27 +110,103 @@ static void print_param(const struct param *param) {
          param->offset);
 }
 
+enum LocationType {
+  Header = 0,
+  Parameters = 1,
+  Integers = 2,
+  Floats = 3,
+  OtherData = 4
+};
+
+static enum LocationType
+get_location_from_abs_offset(const struct examcard_data *examcard_data,
+                             uint32_t abs_offset) {
+  const struct header *header = get_header2(examcard_data);
+  const uint32_t header_size = 32;
+  // ranges:
+  const uint32_t header_beg = 0;
+  const uint32_t header_end = header_size;
+  assert(header_beg == 0);
+  // param
+  const uint32_t param_beg = header_size;
+  const uint32_t param_end = param_beg + header->numparams * 50;
+  assert(param_beg == header_end);
+  // int
+  assert(offsetof(struct header, ints_offset) == 0);
+  const uint32_t int_beg = header->ints_offset + 0;
+  const uint32_t int_end = int_beg + header->num_ints * 4;
+  assert(int_beg == param_end);
+  // float
+  assert(offsetof(struct header, floats_offset) == 8);
+  const uint32_t float_beg = header->floats_offset + 8;
+  const uint32_t float_end = float_beg + header->num_floats * 4;
+  assert(float_beg == int_end);
+  // other data
+  assert(offsetof(struct header, other_data_offset) == 16);
+  const uint32_t other_data_beg = header->other_data_offset + 16;
+  const uint32_t other_data_end = other_data_beg + header->other_data_len;
+  assert(other_data_beg == float_end);
+  assert(other_data_end == examcard_data->len);
+
+  if (abs_offset >= header_beg && abs_offset < header_end) {
+    return Header;
+  } else if (abs_offset >= param_beg && abs_offset < param_end) {
+    return Parameters;
+  } else if (abs_offset >= int_beg && abs_offset < int_end) {
+    return Integers;
+  } else if (abs_offset >= float_beg && abs_offset < float_end) {
+    return Floats;
+  } else if (abs_offset >= other_data_beg && abs_offset < other_data_end) {
+    return OtherData;
+  } else {
+    assert(0);
+  }
+}
+
 static void process_examcard_data2(const struct examcard_data *examcard_data) {
 #if 0
   struct header header;
   get_header(&header, examcard_data);
-  //print_header(&header);
   for (uint32_t p = 0; p < header.numparams; ++p) {
 	 }
 #else
   const struct header *header = get_header2(examcard_data);
+  print_header(header);
   struct param param;
+  assert(offsetof(struct param, eoffset) == 42);
+  assert(offsetof(struct param, offset) == 46);
   for (uint32_t p = 0; p < header->numparams; ++p) {
     const void *param_ptr = get_param_ptr(examcard_data, p);
     memcpy(&param, param_ptr, sizeof param);
     print_param(&param);
+    uint32_t offset1 = param.eoffset + p * 50 + 42 + 32;
+    uint32_t offset2 = param.offset + p * 50 + 46 + 32;
+    enum ParamType type = param.type;
+    enum LocationType location;
+    switch (type) {
+    case Float:
+      location = get_location_from_abs_offset(examcard_data, offset2);
+      assert(location == Floats);
+      break;
+    case Integer:
+      location = get_location_from_abs_offset(examcard_data, offset2);
+      assert(location == Integers);
+      break;
+    case String:
+      location = get_location_from_abs_offset(examcard_data, offset2);
+      assert(location == OtherData);
+      break;
+    case Enum:
+      location = get_location_from_abs_offset(examcard_data, offset1);
+      assert(location == OtherData);
+      break;
+    }
   }
 #endif
 }
 
 // exported:
 void process_examcard_data(const void *data, size_t len) {
-
   struct examcard_data examcard_data;
   examcard_data.data = data;
   examcard_data.len = len;
