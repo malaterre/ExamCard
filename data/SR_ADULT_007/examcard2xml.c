@@ -111,7 +111,10 @@ int find_type(const char *filename) {
 
   int type = -1;
   const char needle[] = ":ScanProcedure id=";
+  // TODO: redo with fgets
   while ((read = getline(&line, &len, fp)) != -1) {
+    //	  assert( read < 512*8 ); // FIXME: <SOAP-ENC:Array can be very very
+    //long
     char *ptr = strstr(line, needle);
     if (ptr) {
       if (strstr(line, old_style))
@@ -329,6 +332,8 @@ int register_namespaces(xmlXPathContextPtr xpathCtx, const xmlChar *nsList) {
   return (0);
 }
 
+void process_examcard_data(const void *data, size_t len);
+
 void get_xpath_nodes(xmlChar *name, xmlNodeSetPtr nodes, const char *href_id) {
   xmlNodePtr cur;
   int size;
@@ -337,8 +342,14 @@ void get_xpath_nodes(xmlChar *name, xmlNodeSetPtr nodes, const char *href_id) {
   size = (nodes) ? nodes->nodeNr : 0;
   FILE *output = stdout;
   char buffer[512];
+  assert(strlen(name) < 512);
   sprintf(buffer, "%s.raw", name);
+  for (int i = 0; i < strlen(name); ++i) {
+    if (buffer[i] == '/')
+      buffer[i] = '|';
+  }
   FILE *stream = fopen(buffer, "wb");
+  assert(stream);
 
   fprintf(output, "Result (%d nodes):\n", size);
   for (i = 0; i < size; ++i) {
@@ -356,7 +367,10 @@ void get_xpath_nodes(xmlChar *name, xmlNodeSetPtr nodes, const char *href_id) {
             input) /* gdcm::Base64::GetDecodeLength( input, inlen )*/;
         void *raw = malloc(dlen);
         //	  gdcm::Base64::Decode( raw, dlen, input, inlen );
-        b64_decode(input, raw, dlen);
+        int r64 = b64_decode(input, raw, dlen);
+        assert(r64 == 1);
+        process_examcard_data(raw, dlen);
+        assert(stream);
         fwrite(raw, 1, dlen, stream);
         free(raw);
         xmlFree(data);
