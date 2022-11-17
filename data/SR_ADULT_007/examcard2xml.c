@@ -92,14 +92,69 @@ int execute_xpath_expression(const char *filename, const xmlChar *xpathExpr0,
 int register_namespaces(xmlXPathContextPtr xpathCtx, const xmlChar *nsList);
 void print_xpath_nodes(xmlNodeSetPtr nodes0, xmlNodeSetPtr nodes, FILE *output);
 
+static const char old_style[] =
+    "http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.Acquisition.AcqGlo/"
+    "philips.pmsmr.acquisition.acqglo_cs";
+static const char new_style[] =
+    "http://schemas.microsoft.com/clr/nsassem/Philips.PmsMR.ExamCards.Model/"
+    "philips.pmsmr.examcards.model.scanproperties_cs";
+
+int find_type(const char *filename) {
+  FILE *fp;
+  char *line = NULL;
+  size_t len = 0;
+  ssize_t read;
+
+  fp = fopen(filename, "r");
+  if (fp == NULL)
+    return -1;
+
+  int type = -1;
+  const char needle[] = ":ScanProcedure id=";
+  while ((read = getline(&line, &len, fp)) != -1) {
+    char *ptr = strstr(line, needle);
+    if (ptr) {
+      if (strstr(line, old_style))
+        type = 0;
+      else if (strstr(line, new_style))
+        type = 1;
+      break;
+    }
+  }
+
+  fclose(fp);
+  if (line)
+    free(line);
+  return type;
+}
+
 int main(int argc, char **argv) {
   const char *filename = argv[1];
   const xmlChar *xpathExpr0 = "//SOAP-ENC:Array";
   const xmlChar *xpathExpr = "//foo:ScanProcedure";
-  const xmlChar *nsList =
+  const xmlChar *nsList = NULL;
+  // old style:
+  const xmlChar *nsListOld =
       "foo=http://schemas.microsoft.com/clr/nsassem/"
       "Philips.PmsMR.Acquisition.AcqGlo/philips.pmsmr.acquisition.acqglo_cs "
       "SOAP-ENC=http://schemas.xmlsoap.org/soap/encoding/";
+  // new style
+  const xmlChar *nsListNew =
+      "foo=http://schemas.microsoft.com/clr/nsassem/"
+      "Philips.PmsMR.ExamCards.Model/"
+      "philips.pmsmr.examcards.model.scanproperties_cs "
+      "SOAP-ENC=http://schemas.xmlsoap.org/soap/encoding/";
+
+  int type = find_type(filename);
+  if (type < 0)
+    return -1;
+
+  if (type == 0) {
+    nsList = nsListOld;
+  } else if (type == 1) {
+    nsList = nsListNew;
+  } else
+    return -1;
 
   /* Init libxml */
   xmlInitParser();
